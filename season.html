@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TravelSphere — discover, compare and plan memorable journeys." />
+  <link rel="stylesheet" href="style.css?v=bg1" />
+  <title>TravelSphere | Seasonal Destinations</title>
+</head>
+
+<body class="season">
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TravelSphere home">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">TRAVELSPHERE</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a class="" href="index.html">Home</a></li>
+        <li><a class="" href="explore.html">Explore</a></li>
+        <li><a class="" href="mood.html">Mood</a></li>
+        <li><a class="" href="food.html">Food</a></li>
+        <li><a class="" href="compare.html">Compare</a></li>
+        <li><a class="active" href="season.html">Seasons</a></li>
+        <li><a class="" href="budget.html">Budget</a></li>
+      </ul>
+    </nav>
+
+    <ul class="tool-nav" aria-label="Utility navigation">
+      <li>
+        <details>
+          <summary class="tool-chip">👤 Profile</summary>
+          <div class="tool-panel">
+            <fieldset class="fieldset">
+              <legend>Guest Explorer</legend>
+              <p>Sign in to sync saved destinations and preferences across your TravelSphere experience.</p>
+              <a class="btn full" href="login.html">Sign In</a>
+              <div class="spacer-xs"></div>
+              <a class="btn secondary full" href="settings.html">Settings</a>
+            </fieldset>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary class="tool-chip">🔎 Search</summary>
+          <div class="tool-panel">
+            <form class="search-form" action="#">
+              <div class="form-field">
+                <label for="header-search">Find a destination</label>
+                <input id="header-search" name="q" type="search" placeholder="Paris, Tokyo, Maldives…" />
+              </div>
+              <div class="spacer-sm"></div>
+              <button class="btn full" type="submit">Search</button>
+            </form>
+          </div>
+        </details>
+      </li>
+      <li><a class="tool-chip" href="saved.html">♥ Saved <span class="count" data-favorite-count>0</span></a></li>
+    </ul>
+  </header>
+  <main class="page-shell">
+    <section class="page-panel">
+      <div class="page-head">
+        <p class="eyebrow">Travel with the calendar</p>
+        <h1 class="page-title">Seasonal destinations</h1>
+        <p class="page-subtitle">Match the timing of your trip to places that shine during that part of the year.</p>
+      </div>
+      <div class="season-tabs" role="tablist" aria-label="Travel seasons">
+        <button class="season-tab active" type="button" data-season="spring">🌸 Spring</button><button
+          class="season-tab" type="button" data-season="summer">☀️ Summer</button><button class="season-tab"
+          type="button" data-season="autumn">🍂 Autumn</button><button class="season-tab" type="button"
+          data-season="winter">❄️ Winter</button>
+      </div>
+      <section id="spring" class="season-content active">
+        <h2 class="section-title">Spring destinations</h2>
+        <p>Kyoto, Paris and Washington D.C. work well for blossoms, city walks and comfortable outdoor days.</p>
+        <div class="season-facts">
+          <div class="fact"><strong>Temperature</strong>10°C–20°C</div>
+          <div class="fact"><strong>Activities</strong>Cherry blossoms, cafés, walking tours</div>
+          <div class="fact"><strong>Clothing</strong>Light jackets, layers, walking shoes</div>
+          <div class="fact"><strong>Travel mood</strong>Cultural · Relaxing</div>
+        </div>
+      </section>
+      <section id="summer" class="season-content">
+        <h2 class="section-title">Summer destinations</h2>
+        <p>Santorini, the Amalfi Coast and Bali shine when the plan is built around water, sailing and long evenings.
+        </p>
+        <div class="season-facts">
+          <div class="fact"><strong>Temperature</strong>25°C–35°C</div>
+          <div class="fact"><strong>Activities</strong>Beach hopping, sailing, swimming</div>
+          <div class="fact"><strong>Clothing</strong>Light cotton, swimwear, sunglasses</div>
+          <div class="fact"><strong>Travel mood</strong>Relaxing · Luxury</div>
+        </div>
+      </section>
+      <section id="autumn" class="season-content">
+        <h2 class="section-title">Autumn destinations</h2>
+        <p>New England, Bavaria and Kyoto offer foliage, hiking and a quieter pace than high summer.</p>
+        <div class="season-facts">
+          <div class="fact"><strong>Temperature</strong>5°C–15°C</div>
+          <div class="fact"><strong>Activities</strong>Foliage viewing, wine tasting, hiking</div>
+          <div class="fact"><strong>Clothing</strong>Sweaters, boots, light jackets</div>
+          <div class="fact"><strong>Travel mood</strong>Nature · Cultural</div>
+        </div>
+      </section>
+      <section id="winter" class="season-content">
+        <h2 class="section-title">Winter destinations</h2>
+        <p>Banff and the Swiss Alps are ideal for snow sports, while Maldives offers a warmer winter-sun alternative.
+        </p>
+        <div class="season-facts">
+          <div class="fact"><strong>Temperature</strong>-10°C–5°C in snowy regions</div>
+          <div class="fact"><strong>Activities</strong>Skiing, snowboarding, thermal baths</div>
+          <div class="fact"><strong>Clothing</strong>Heavy coat, thermal layers, snow boots</div>
+          <div class="fact"><strong>Travel mood</strong>Adventure · Relaxing</div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">✦ TRAVELSPHERE</a>
+      <p>Discover beautiful destinations, unforgettable food and smarter ways to plan your next journey.</p>
+      <a class="footer-explore" href="explore.html">Explore the world →</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Discover</h3>
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="mood.html">Travel by Mood</a>
+      <a href="food.html">Food Explorer</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Plan</h3>
+      <a href="compare.html">Compare Destinations</a>
+      <a href="season.html">Best Seasons</a>
+      <a href="budget.html">Budget Planner</a>
+      <a href="saved.html">Saved Places</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>TravelSphere</h3>
+      <a href="login.html">Sign In</a>
+      <a href="signup.html">Create Account</a>
+      <a href="settings.html">Settings</a>
+      <a href="food.html">Taste the World 🍽️</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 TravelSphere</span>
+    <span>Crafted for curious explorers · Travel far, taste more.</span>
+  </div>
+</footer>
+  
+    <script src="js/common.js" defer></script>
+    <script src="js/home.js" defer></script>
+    <script src="js/auth.js" defer></script>
+</body>
+
+</html>

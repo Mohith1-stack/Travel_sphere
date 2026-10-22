@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TravelSphere — discover, compare and plan memorable journeys." />
+  <link rel="stylesheet" href="style.css" />
+  <title>TravelSphere | 🏛️ Cultural journeys</title>
+</head>
+
+<body class="mood">
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TravelSphere home">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">TRAVELSPHERE</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a class="" href="index.html">Home</a></li>
+        <li><a class="" href="explore.html">Explore</a></li>
+        <li><a class="active" href="mood.html">Mood</a></li>
+        <li><a class="" href="food.html">Food</a></li>
+        <li><a class="" href="compare.html">Compare</a></li>
+        <li><a class="" href="season.html">Seasons</a></li>
+        <li><a class="" href="budget.html">Budget</a></li>
+      </ul>
+    </nav>
+
+    <ul class="tool-nav" aria-label="Utility navigation">
+      <li>
+        <details>
+          <summary class="tool-chip">👤 Profile</summary>
+          <div class="tool-panel">
+            <fieldset class="fieldset">
+              <legend>Guest Explorer</legend>
+              <p>Sign in to sync saved destinations and preferences across your TravelSphere experience.</p>
+              <a class="btn full" href="login.html">Sign In</a>
+              <div class="spacer-xs"></div>
+              <a class="btn secondary full" href="settings.html">Settings</a>
+            </fieldset>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary class="tool-chip">🔎 Search</summary>
+          <div class="tool-panel">
+            <form class="search-form" action="#">
+              <div class="form-field">
+                <label for="header-search">Find a destination</label>
+                <input id="header-search" name="q" type="search" placeholder="Paris, Tokyo, Maldives…" />
+              </div>
+              <div class="spacer-sm"></div>
+              <button class="btn full" type="submit">Search</button>
+            </form>
+          </div>
+        </details>
+      </li>
+      <li><a class="tool-chip" href="saved.html">♥ Saved <span class="count" data-favorite-count>0</span></a></li>
+    </ul>
+  </header>
+  <main class="page-shell">
+    <section class="page-panel">
+      <div class="page-head">
+        <p class="eyebrow">Personalized discovery</p>
+        <h1 class="page-title">🏛️ Cultural journeys</h1>
+        <p class="page-subtitle">Immerse yourself in history, art, architecture and living traditions.</p>
+      </div>
+      <form class="mood-form mood-filter" action="#">
+        <fieldset class="fieldset fieldset-plain">
+          <legend>Filter by mood</legend>
+          <div class="mood-options"><label class="mood-option"><input type="radio" name="mood" value="adventure" /> 🧗
+              Adventure</label><label class="mood-option"><input type="radio" name="mood" value="relaxing" /> 🌴
+              Relaxing</label><label class="mood-option"><input type="radio" name="mood" value="cultural" checked /> 🏛️
+              Cultural</label><label class="mood-option"><input type="radio" name="mood" value="nature" /> 🌲
+              Nature</label><label class="mood-option"><input type="radio" name="mood" value="luxury" /> ✨
+              Luxury</label><label class="mood-option"><input type="radio" name="mood" value="all" /> 🌍 All
+              Moods</label><button class="btn" type="submit">Apply filter</button></div>
+        </fieldset>
+      </form>
+      <div class="page-head recommendations-head">
+        <h2 class="section-title">Recommended for you</h2>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Rome, Italy</h3>
+          <p>Ancient ruins, the Vatican and layers of Italian history.</p>
+          <div class="card-actions"><span class="muted">Heritage</span><a href="destination.html?destination=Rome">View
+              details →</a></div>
+          <div class="card-actions"><button class="btn secondary" type="button" data-save-destination="Rome, Italy">♡
+              Save to Favorites</button></div>
+        </article>
+        <article class="card">
+          <h3>Kyoto, Japan</h3>
+          <p>Temples, gardens, tea culture and carefully preserved rituals.</p>
+          <div class="card-actions"><span class="muted">Tradition</span><a
+              href="destination.html?destination=Kyoto">View details →</a></div>
+          <div class="card-actions"><button class="btn secondary" type="button" data-save-destination="Kyoto, Japan">♡
+              Save to Favorites</button></div>
+        </article>
+        <article class="card">
+          <h3>Cusco, Peru</h3>
+          <p>Incan heritage, colonial architecture and a gateway to Machu Picchu.</p>
+          <div class="card-actions"><span class="muted">History</span><a href="destination.html?destination=Cusco">View
+              details →</a></div>
+          <div class="card-actions"><button class="btn secondary" type="button" data-save-destination="Cusco, Peru">♡
+              Save to Favorites</button></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">✦ TRAVELSPHERE</a>
+      <p>Discover beautiful destinations, unforgettable food and smarter ways to plan your next journey.</p>
+      <a class="footer-explore" href="explore.html">Explore the world →</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Discover</h3>
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="mood.html">Travel by Mood</a>
+      <a href="food.html">Food Explorer</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Plan</h3>
+      <a href="compare.html">Compare Destinations</a>
+      <a href="season.html">Best Seasons</a>
+      <a href="budget.html">Budget Planner</a>
+      <a href="saved.html">Saved Places</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>TravelSphere</h3>
+      <a href="login.html">Sign In</a>
+      <a href="signup.html">Create Account</a>
+      <a href="settings.html">Settings</a>
+      <a href="food.html">Taste the World 🍽️</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 TravelSphere</span>
+    <span>Crafted for curious explorers · Travel far, taste more.</span>
+  </div>
+</footer>
+  
+    <script src="js/common.js" defer></script>
+    <script src="js/home.js" defer></script>
+    <script src="js/auth.js" defer></script>
+</body>
+
+</html>

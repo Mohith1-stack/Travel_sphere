@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TravelSphere — discover, compare and plan memorable journeys." />
+  <link rel="stylesheet" href="style.css?v=bg1" />
+  <title>TravelSphere | Destination Details</title>
+</head>
+
+<body class="destination">
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TravelSphere home">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">TRAVELSPHERE</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a class="" href="index.html">Home</a></li>
+        <li><a class="" href="explore.html">Explore</a></li>
+        <li><a class="" href="mood.html">Mood</a></li>
+        <li><a class="" href="food.html">Food</a></li>
+        <li><a class="" href="compare.html">Compare</a></li>
+        <li><a class="" href="season.html">Seasons</a></li>
+        <li><a class="" href="budget.html">Budget</a></li>
+      </ul>
+    </nav>
+
+    <ul class="tool-nav" aria-label="Utility navigation">
+      <li>
+        <details>
+          <summary class="tool-chip">👤 Profile</summary>
+          <div class="tool-panel">
+            <fieldset class="fieldset">
+              <legend>Guest Explorer</legend>
+              <p>Sign in to sync saved destinations and preferences across your TravelSphere experience.</p>
+              <a class="btn full" href="login.html">Sign In</a>
+              <div class="spacer-xs"></div>
+              <a class="btn secondary full" href="settings.html">Settings</a>
+            </fieldset>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary class="tool-chip">🔎 Search</summary>
+          <div class="tool-panel">
+            <form class="search-form" action="#">
+              <div class="form-field">
+                <label for="header-search">Find a destination</label>
+                <input id="header-search" name="q" type="search" placeholder="Paris, Tokyo, Maldives…" />
+              </div>
+              <div class="spacer-sm"></div>
+              <button class="btn full" type="submit">Search</button>
+            </form>
+          </div>
+        </details>
+      </li>
+      <li><a class="tool-chip" href="saved.html">♥ Saved <span class="count" data-favorite-count>0</span></a></li>
+    </ul>
+  </header>
+  <main class="page-shell">
+    <section class="page-panel">
+      <div class="page-head">
+        <p class="eyebrow">Destination profile</p>
+        <h1 class="page-title" id="dest-title">Loading...</h1>
+        <p id="destination-query" class="page-subtitle">Fetching destination details...</p>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Overview (Wikipedia)</h3>
+          <p id="dest-overview">Please wait while we gather information from Wikipedia...</p>
+          <div class="card-actions">
+            <span class="muted" id="dest-tags">Travel</span>
+            <button class="btn secondary" type="button" id="dest-save-btn" data-save-destination="">♡ Save to
+              Favorites</button>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Live Weather & Satellite (Open-Meteo)</h3>
+          <p id="dest-weather">Loading real-time satellite conditions...</p>
+          <div class="card-actions"><span class="muted" id="dest-weather-tags">Weather</span><a href="season.html">See
+              seasonal ideas →</a></div>
+        </article>
+        <article class="card" id="dest-image-card"
+          style="display:none; background-size: cover; background-position: center; min-height: 220px;">
+          <div style="background: rgba(0,0,0,0.65); padding: 18px; border-radius: 12px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;">
+            <h3>Destination View</h3>
+            <p>Official photograph sourced live from Wikimedia Commons.</p>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Live Flights & Maps (Google)</h3>
+          <p id="dest-flight-info">Compare real-time airline routes, flight durations and aerial sights directly on Google.</p>
+          <div class="card-actions">
+            <a class="btn" id="dest-flight-link" target="_blank" rel="noopener" href="#">Search Google Flights ↗</a>
+            <a class="btn secondary" id="dest-maps-link" target="_blank" rel="noopener" href="#">Explore Google Maps ↗</a>
+          </div>
+        </article>
+        <article class="card" id="dest-food-card">
+          <h3>Regional Food & Cuisine (Wikipedia)</h3>
+          <p id="dest-food-extract">Connecting to live culinary encyclopedia…</p>
+          <div class="card-actions">
+            <span class="muted" id="dest-food-badge">Gastronomy</span>
+            <a class="btn secondary" href="food.html">Explore Food Culture →</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Trip-Planning Tools</h3>
+          <p>Compare this destination against another or estimate your trip budget with our calculator.</p>
+          <div class="card-actions"><a class="btn secondary" href="compare.html" id="compare-link">Compare</a><a
+              class="btn" href="budget.html">Plan budget</a></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">✦ TRAVELSPHERE</a>
+      <p>Discover beautiful destinations, unforgettable food and smarter ways to plan your next journey.</p>
+      <a class="footer-explore" href="explore.html">Explore the world →</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Discover</h3>
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="mood.html">Travel by Mood</a>
+      <a href="food.html">Food Explorer</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Plan</h3>
+      <a href="compare.html">Compare Destinations</a>
+      <a href="season.html">Best Seasons</a>
+      <a href="budget.html">Budget Planner</a>
+      <a href="saved.html">Saved Places</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>TravelSphere</h3>
+      <a href="login.html">Sign In</a>
+      <a href="signup.html">Create Account</a>
+      <a href="settings.html">Settings</a>
+      <a href="food.html">Taste the World 🍽️</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 TravelSphere</span>
+    <span>Crafted for curious explorers · Travel far, taste more.</span>
+  </div>
+</footer>
+  
+    <script src="js/common.js" defer></script>
+    <script src="js/destination.js" defer></script>
+    <script src="js/auth.js" defer></script>
+</body>
+
+</html>

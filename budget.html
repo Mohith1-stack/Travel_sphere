@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TravelSphere — discover, compare and plan memorable journeys." />
+  <link rel="stylesheet" href="style.css?v=bg1" />
+  <title>TravelSphere | Budget Calculator</title>
+</head>
+
+<body class="budget">
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TravelSphere home">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">TRAVELSPHERE</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a class="" href="index.html">Home</a></li>
+        <li><a class="" href="explore.html">Explore</a></li>
+        <li><a class="" href="mood.html">Mood</a></li>
+        <li><a class="" href="food.html">Food</a></li>
+        <li><a class="" href="compare.html">Compare</a></li>
+        <li><a class="" href="season.html">Seasons</a></li>
+        <li><a class="active" href="budget.html">Budget</a></li>
+      </ul>
+    </nav>
+
+    <ul class="tool-nav" aria-label="Utility navigation">
+      <li>
+        <details>
+          <summary class="tool-chip">👤 Profile</summary>
+          <div class="tool-panel">
+            <fieldset class="fieldset">
+              <legend>Guest Explorer</legend>
+              <p>Sign in to sync saved destinations and preferences across your TravelSphere experience.</p>
+              <a class="btn full" href="login.html">Sign In</a>
+              <div class="spacer-xs"></div>
+              <a class="btn secondary full" href="settings.html">Settings</a>
+            </fieldset>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary class="tool-chip">🔎 Search</summary>
+          <div class="tool-panel">
+            <form class="search-form" action="#">
+              <div class="form-field">
+                <label for="header-search">Find a destination</label>
+                <input id="header-search" name="q" type="search" placeholder="Paris, Tokyo, Maldives…" />
+              </div>
+              <div class="spacer-sm"></div>
+              <button class="btn full" type="submit">Search</button>
+            </form>
+          </div>
+        </details>
+      </li>
+      <li><a class="tool-chip" href="saved.html">♥ Saved <span class="count" data-favorite-count>0</span></a></li>
+    </ul>
+  </header>
+  <main class="page-shell">
+    <section class="page-panel">
+      <div class="page-head center">
+        <p class="eyebrow">Plan with confidence</p>
+        <h1 class="page-title">Budget calculator</h1>
+        <p class="page-subtitle center-copy">Enter your expected travel costs and get an instant estimate before the
+          itinerary gets expensive.</p>
+      </div>
+      <div class="calculator">
+        <form id="budget-form">
+          <div class="form-grid">
+            <div class="form-field"><label for="hotel">Hotel</label><input id="hotel" min="0" placeholder="0"
+                type="number" /></div>
+            <div class="form-field"><label for="flight">Flight</label><input id="flight" min="0" placeholder="0"
+                type="number" /></div>
+            <div class="form-field"><label for="food">Food</label><input id="food" min="0" placeholder="0"
+                type="number" /></div>
+            <div class="form-field"><label for="shopping">Shopping</label><input id="shopping" min="0" placeholder="0"
+                type="number" /></div>
+            <div class="form-field"><label for="transport">Transport</label><input id="transport" min="0"
+                placeholder="0" type="number" /></div>
+            <div class="form-field"><label for="budget-currency">Currency</label><select id="budget-currency">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="INR" selected>INR (₹)</option>
+              </select></div>
+            <div class="full form-actions"><button class="btn full" type="submit">Calculate total</button></div>
+          </div>
+        </form>
+        <div id="budget-result" class="budget-result hidden"><span class="result-label">Estimated trip
+            budget</span><span id="total-amount" class="total">₹0</span></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">✦ TRAVELSPHERE</a>
+      <p>Discover beautiful destinations, unforgettable food and smarter ways to plan your next journey.</p>
+      <a class="footer-explore" href="explore.html">Explore the world →</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Discover</h3>
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="mood.html">Travel by Mood</a>
+      <a href="food.html">Food Explorer</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Plan</h3>
+      <a href="compare.html">Compare Destinations</a>
+      <a href="season.html">Best Seasons</a>
+      <a href="budget.html">Budget Planner</a>
+      <a href="saved.html">Saved Places</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>TravelSphere</h3>
+      <a href="login.html">Sign In</a>
+      <a href="signup.html">Create Account</a>
+      <a href="settings.html">Settings</a>
+      <a href="food.html">Taste the World 🍽️</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 TravelSphere</span>
+    <span>Crafted for curious explorers · Travel far, taste more.</span>
+  </div>
+</footer>
+  
+    <script src="js/common.js" defer></script>
+    <script src="js/budget.js" defer></script>
+    <script src="js/auth.js" defer></script>
+</body>
+
+</html>

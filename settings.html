@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TravelSphere — discover, compare and plan memorable journeys." />
+  <link rel="stylesheet" href="style.css?v=bg1" />
+  <title>TravelSphere | Settings</title>
+</head>
+
+<body class="settings">
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TravelSphere home">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">TRAVELSPHERE</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a class="" href="index.html">Home</a></li>
+        <li><a class="" href="explore.html">Explore</a></li>
+        <li><a class="" href="mood.html">Mood</a></li>
+        <li><a class="" href="food.html">Food</a></li>
+        <li><a class="" href="compare.html">Compare</a></li>
+        <li><a class="" href="season.html">Seasons</a></li>
+        <li><a class="" href="budget.html">Budget</a></li>
+      </ul>
+    </nav>
+
+    <ul class="tool-nav" aria-label="Utility navigation">
+      <li>
+        <details>
+          <summary class="tool-chip">👤 Profile</summary>
+          <div class="tool-panel">
+            <fieldset class="fieldset">
+              <legend>Guest Explorer</legend>
+              <p>Sign in to sync saved destinations and preferences across your TravelSphere experience.</p>
+              <a class="btn full" href="login.html">Sign In</a>
+              <div class="spacer-xs"></div>
+              <a class="btn secondary full" href="settings.html">Settings</a>
+            </fieldset>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary class="tool-chip">🔎 Search</summary>
+          <div class="tool-panel">
+            <form class="search-form" action="#">
+              <div class="form-field">
+                <label for="header-search">Find a destination</label>
+                <input id="header-search" name="q" type="search" placeholder="Paris, Tokyo, Maldives…" />
+              </div>
+              <div class="spacer-sm"></div>
+              <button class="btn full" type="submit">Search</button>
+            </form>
+          </div>
+        </details>
+      </li>
+      <li><a class="tool-chip" href="saved.html">♥ Saved <span class="count" data-favorite-count>0</span></a></li>
+    </ul>
+  </header>
+  <main class="page-shell">
+    <section class="page-panel">
+      <div class="page-head">
+        <p class="eyebrow">Your travel control room</p>
+        <h1 class="page-title">Account settings</h1>
+        <p class="page-subtitle">Manage profile information, security and the preferences that shape your TravelSphere
+          experience.</p>
+      </div>
+      <div class="settings-section">
+        <h3>Traveler dashboard</h3>
+        <div class="stats">
+          <div class="stat"><span class="muted">Saved destinations</span><strong data-favorite-count>0</strong></div>
+          <div class="stat"><span class="muted">Flights tracked</span><strong id="stat-flights">0</strong></div>
+          <div class="stat"><span class="muted">Traveler status</span><strong id="stat-status">Explorer</strong></div>
+        </div>
+      </div>
+      <div class="settings-section">
+        <h3>General information</h3>
+        <form class="settings-form" id="profile-form">
+          <div class="form-grid">
+            <div class="form-field"><label for="fname">First name</label><input id="fname" placeholder="First name" />
+            </div>
+            <div class="form-field"><label for="lname">Last name</label><input id="lname" placeholder="Last name" />
+            </div>
+            <div class="form-field"><label for="email">Email address</label><input id="email" type="email"
+                placeholder="email@example.com" /></div>
+            <div class="form-field"><label for="phone">Phone number</label><input id="phone" type="tel"
+                placeholder="+1 (555) 000-0000" /></div>
+            <div class="full form-actions"><button class="btn" type="submit">Save profile</button></div>
+          </div>
+          <p class="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="settings-section">
+        <h3>Security</h3>
+        <form class="settings-form">
+          <div class="form-grid">
+            <div class="form-field"><label for="curr-pass">Current password</label><input id="curr-pass"
+                type="password" /></div>
+            <div class="form-field"><label for="new-pass">New password</label><input id="new-pass" type="password" />
+            </div>
+            <div class="form-field"><label for="confirm-pass">Confirm new password</label><input id="confirm-pass"
+                type="password" /></div>
+            <div class="form-field check-field"><label><input type="checkbox" id="two-factor" /> Enable Two-Factor
+                Authentication</label></div>
+            <div class="full form-actions"><button class="btn" type="submit">Update security</button></div>
+          </div>
+          <p class="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="settings-section">
+        <h3>Preferences</h3>
+        <form class="settings-form" id="prefs-form">
+          <div class="form-grid">
+            <div class="form-field"><label for="currency">Preferred currency</label><select id="currency">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="INR" selected>INR (₹)</option>
+              </select></div>
+            <div class="form-field"><label for="language">Language</label><select id="language">
+                <option value="English" selected>English</option>
+                <option value="French">French</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Hindi">Hindi</option>
+              </select></div>
+            <div class="full form-actions"><button class="btn" type="submit">Save preferences</button></div>
+          </div>
+          <p class="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="settings-section">
+        <h3>Notifications</h3>
+        <form class="settings-form" id="notif-form">
+          <div class="stack"><label><input id="notif-booking" type="checkbox" /> Booking confirmations &
+              updates</label><label><input id="notif-deals" type="checkbox" /> Exclusive travel deals &
+              offers</label><label><input id="notif-newsletter" type="checkbox" /> Weekly travel newsletter</label>
+            <div class="form-actions"><button class="btn" type="submit">Update notifications</button></div>
+          </div>
+          <p class="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="settings-section danger">
+        <h3>Danger zone</h3>
+        <p>Deleting local data removes the profile from this device.</p>
+        <form id="danger-form"><button class="btn danger" type="submit">Clear local data</button></form>
+      </div>
+      <div class="form-actions end-actions"><a class="btn secondary" href="index.html">Log out</a></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">✦ TRAVELSPHERE</a>
+      <p>Discover beautiful destinations, unforgettable food and smarter ways to plan your next journey.</p>
+      <a class="footer-explore" href="explore.html">Explore the world →</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Discover</h3>
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="mood.html">Travel by Mood</a>
+      <a href="food.html">Food Explorer</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Plan</h3>
+      <a href="compare.html">Compare Destinations</a>
+      <a href="season.html">Best Seasons</a>
+      <a href="budget.html">Budget Planner</a>
+      <a href="saved.html">Saved Places</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>TravelSphere</h3>
+      <a href="login.html">Sign In</a>
+      <a href="signup.html">Create Account</a>
+      <a href="settings.html">Settings</a>
+      <a href="food.html">Taste the World 🍽️</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 TravelSphere</span>
+    <span>Crafted for curious explorers · Travel far, taste more.</span>
+  </div>
+</footer>
+  
+    <script src="js/common.js" defer></script>
+    <script src="js/auth.js" defer></script>
+</body>
+
+</html>

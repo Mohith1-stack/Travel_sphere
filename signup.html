@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TravelSphere — discover, compare and plan memorable journeys." />
+  <link rel="stylesheet" href="style.css?v=bg1" />
+  <title>TravelSphere | Sign up</title>
+</head>
+
+<body class="login">
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TravelSphere home">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">TRAVELSPHERE</span>
+    </a>
+
+
+  </header>
+  <main class="page-shell">
+    <section class="auth-card">
+      <div class="page-panel">
+        <div class="auth-mark">✦</div>
+        <div class="page-head">
+          <p class="eyebrow">Join TravelSphere</p>
+          <h1 class="page-title">Create an account</h1>
+          <p class="page-subtitle">Unlock personalized recommendations and start saving your favorite destinations.</p>
+        </div>
+        <form id="signup-form">
+          <fieldset class="fieldset">
+            <legend>Sign up</legend>
+            <div class="stack">
+              <div class="form-grid" style="gap: 12px; margin-bottom: 0;">
+                <div class="form-field"><label for="signup-fname">First Name</label><input id="signup-fname"
+                    name="fname" required type="text" placeholder="First Name" /></div>
+                <div class="form-field"><label for="signup-lname">Last Name</label><input id="signup-lname" name="lname"
+                    required type="text" placeholder="Last Name" /></div>
+              </div>
+              <div class="form-field"><label for="signup-email">Email</label><input id="signup-email" name="email"
+                  required type="email" placeholder="email@example.com" /></div>
+              <div class="form-field"><label for="signup-password">Password</label><input id="signup-password"
+                  name="password" required type="password" placeholder="••••••••" /></div>
+              <button class="btn full" type="submit">Create account</button>
+            </div>
+          </fieldset>
+        </form>
+        <p class="center mt-md">Already have an account? <a href="login.html">Sign in →</a></p>
+      </div>
+    </section>
+  </main>
+  
+    <script src="js/common.js" defer></script>
+    <script src="js/auth.js" defer></script>
+</body>
+
+</html>

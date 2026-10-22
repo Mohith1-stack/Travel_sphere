@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TravelSphere — discover, compare and plan memorable journeys." />
+  <link rel="stylesheet" href="style.css?v=bg1" />
+  <title>TravelSphere | Compare Destinations</title>
+</head>
+
+<body class="compare">
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TravelSphere home">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">TRAVELSPHERE</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a class="" href="index.html">Home</a></li>
+        <li><a class="" href="explore.html">Explore</a></li>
+        <li><a class="" href="mood.html">Mood</a></li>
+        <li><a class="" href="food.html">Food</a></li>
+        <li><a class="active" href="compare.html">Compare</a></li>
+        <li><a class="" href="season.html">Seasons</a></li>
+        <li><a class="" href="budget.html">Budget</a></li>
+      </ul>
+    </nav>
+
+    <ul class="tool-nav" aria-label="Utility navigation">
+      <li>
+        <details>
+          <summary class="tool-chip">👤 Profile</summary>
+          <div class="tool-panel">
+            <fieldset class="fieldset">
+              <legend>Guest Explorer</legend>
+              <p>Sign in to sync saved destinations and preferences across your TravelSphere experience.</p>
+              <a class="btn full" href="login.html">Sign In</a>
+              <div class="spacer-xs"></div>
+              <a class="btn secondary full" href="settings.html">Settings</a>
+            </fieldset>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary class="tool-chip">🔎 Search</summary>
+          <div class="tool-panel">
+            <form class="search-form" action="#">
+              <div class="form-field">
+                <label for="header-search">Find a destination</label>
+                <input id="header-search" name="q" type="search" placeholder="Paris, Tokyo, Maldives…" />
+              </div>
+              <div class="spacer-sm"></div>
+              <button class="btn full" type="submit">Search</button>
+            </form>
+          </div>
+        </details>
+      </li>
+      <li><a class="tool-chip" href="saved.html">♥ Saved <span class="count" data-favorite-count>0</span></a></li>
+    </ul>
+  </header>
+  <main class="page-shell">
+    <section class="page-panel">
+      <div class="page-head">
+        <p class="eyebrow">Make the choice clearer</p>
+        <h1 class="page-title">Compare destinations</h1>
+        <p class="page-subtitle">Put two destinations side by side and quickly see how their travel personalities
+          differ.</p>
+      </div>
+      <form id="compare-form" class="compare-controls">
+        <div class="form-grid">
+          <div class="form-field"><label for="dest1">Destination 1</label><input id="dest1" name="dest1"
+              value="Maldives" placeholder="e.g., Paris" /></div>
+          <div class="form-field"><label for="dest2">Destination 2</label><input id="dest2" name="dest2"
+              value="Santorini" placeholder="e.g., Tokyo" /></div>
+          <div class="full form-actions"><button class="btn" type="submit">Compare destinations</button><span
+              class="muted">Works dynamically for any destination worldwide.</span></div>
+        </div>
+      </form>
+      <div class="compare-table-wrap">
+        <table class="compare-table" aria-label="Destination comparison">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th id="compare-left">Maldives</th>
+              <th id="compare-right">Santorini</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Live Status</strong></td>
+              <td colspan="2" style="text-align: center; color: var(--muted); padding: 24px; font-style: italic;">
+                📡 Enter any two destinations above to compare live weather (Open-Meteo), official Wikipedia profiles, and Google Flights routes in real-time.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">✦ TRAVELSPHERE</a>
+      <p>Discover beautiful destinations, unforgettable food and smarter ways to plan your next journey.</p>
+      <a class="footer-explore" href="explore.html">Explore the world →</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Discover</h3>
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="mood.html">Travel by Mood</a>
+      <a href="food.html">Food Explorer</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Plan</h3>
+      <a href="compare.html">Compare Destinations</a>
+      <a href="season.html">Best Seasons</a>
+      <a href="budget.html">Budget Planner</a>
+      <a href="saved.html">Saved Places</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>TravelSphere</h3>
+      <a href="login.html">Sign In</a>
+      <a href="signup.html">Create Account</a>
+      <a href="settings.html">Settings</a>
+      <a href="food.html">Taste the World 🍽️</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 TravelSphere</span>
+    <span>Crafted for curious explorers · Travel far, taste more.</span>
+  </div>
+</footer>
+  
+    <script src="js/common.js" defer></script>
+    <script src="js/compare.js" defer></script>
+    <script src="js/auth.js" defer></script>
+</body>
+
+</html>
