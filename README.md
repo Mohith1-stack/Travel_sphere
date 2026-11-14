@@ -61,7 +61,7 @@ Travel_sphere/
 ├── login.html, signup.html    # Demo account screens
 ├── settings.html              # Demo preferences
 ├── style.css                  # Shared styles and responsive layouts
-├── travel_bg.jpg              # Shared background image
+├── travel_hero.webp           # Homepage destination photograph
 ├── js/                         # Page scripts and shared behavior
 ├── vercel.json                 # Vercel clean URL and header configuration
 └── JAVASCRIPT_BEGINNER_GUIDE.md
