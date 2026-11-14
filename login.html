@@ -26,20 +26,21 @@
         <div class="page-head">
           <p class="eyebrow">TravelSphere account</p>
           <h1 class="page-title">Welcome back</h1>
-          <p class="page-subtitle">Log in to keep saved destinations and travel preferences together.</p>
+          <p class="page-subtitle">Sign in to continue to your saved places and trip planning tools.</p>
         </div>
         <form id="login-form">
           <fieldset class="fieldset">
             <legend>Sign in</legend>
             <div class="stack">
               <div class="form-field"><label for="username">Username</label><input id="username" name="username"
-                  required type="text" placeholder="Your username" /></div>
+                  autocomplete="username" required type="text" placeholder="Your username" /></div>
               <div class="form-field"><label for="password">Password</label><input id="password" name="password"
-                  required type="password" placeholder="Your password" /></div>
+                  autocomplete="current-password" required type="password" placeholder="Your password" /></div>
               <button class="btn full" type="submit">Login</button>
             </div>
           </fieldset>
         </form>
+        <p class="auth-note">Demo sign-in is saved in this browser only. Please don’t use a real password.</p>
         <p class="center mt-md">New here? <a href="signup.html">Create an account →</a></p>
       </div>
     </section>

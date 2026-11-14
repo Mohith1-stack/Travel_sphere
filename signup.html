@@ -34,18 +34,19 @@
             <div class="stack">
               <div class="form-grid" style="gap: 12px; margin-bottom: 0;">
                 <div class="form-field"><label for="signup-fname">First Name</label><input id="signup-fname"
-                    name="fname" required type="text" placeholder="First Name" /></div>
+                    autocomplete="given-name" name="fname" required type="text" placeholder="First Name" /></div>
                 <div class="form-field"><label for="signup-lname">Last Name</label><input id="signup-lname" name="lname"
-                    required type="text" placeholder="Last Name" /></div>
+                    autocomplete="family-name" required type="text" placeholder="Last Name" /></div>
               </div>
               <div class="form-field"><label for="signup-email">Email</label><input id="signup-email" name="email"
-                  required type="email" placeholder="email@example.com" /></div>
+                  autocomplete="email" required type="email" placeholder="email@example.com" /></div>
               <div class="form-field"><label for="signup-password">Password</label><input id="signup-password"
-                  name="password" required type="password" placeholder="••••••••" /></div>
+                  autocomplete="new-password" name="password" required type="password" placeholder="••••••••" /></div>
               <button class="btn full" type="submit">Create account</button>
             </div>
           </fieldset>
         </form>
+        <p class="auth-note">Demo accounts are saved in this browser only. Please don’t use a real password.</p>
         <p class="center mt-md">Already have an account? <a href="login.html">Sign in →</a></p>
       </div>
     </section>

@@ -38,7 +38,7 @@ function updateAuthUI() {
             <p style="margin: 2px 0 0; font-size: 0.8rem; color: var(--muted);">${escapeHtml(displayEmail)}</p>
           </div>
           <p style="font-size: 0.84rem; color: var(--text-soft); line-height: 1.4; margin: 0 0 14px;">
-            Signed in to private vault. Your saved destinations and preferences are isolated and encrypted to your account.
+            Your saved destinations and preferences are kept separately in this browser for this demo.
           </p>
           <a class="btn full" href="settings.html" style="margin-bottom: 8px;">⚙️ Settings & Sign Out</a>
           <a class="btn secondary full" href="saved.html">♥ Saved Places (<span data-favorite-count>${getSavedPlaces().length}</span>)</a>
@@ -50,7 +50,7 @@ function updateAuthUI() {
       panel.innerHTML = `
         <fieldset class="fieldset">
           <legend>Guest Explorer</legend>
-          <p>Sign in to sync saved destinations and preferences across your TravelSphere experience.</p>
+          <p>Sign in to access saved destinations and preferences stored in this browser.</p>
           <a class="btn full" href="login.html">Sign In</a>
           <div class="spacer-xs"></div>
           <a class="btn secondary full" href="settings.html">Settings</a>
@@ -156,6 +156,19 @@ function updateAuthUI() {
 }
 
 // Front-end signup and login with account isolation
+function finishSignIn(form, name) {
+  const explorerName = name || 'Explorer';
+  showMessage(form, `Welcome, ${explorerName}! Thanks for choosing TravelSphere. We hope you enjoy planning your next journey.`);
+  try {
+    sessionStorage.setItem('ts-welcome-message', JSON.stringify({ name: explorerName }));
+  } catch {
+    // The sign-in flow still works when session storage is unavailable.
+  }
+  window.setTimeout(() => {
+    window.location.replace(getPostAuthDestination());
+  }, 900);
+}
+
 const signupForm = document.getElementById('signup-form');
 if (signupForm) {
   signupForm.addEventListener('submit', (event) => {
@@ -182,8 +195,7 @@ if (signupForm) {
       userKey: userKey
     });
 
-    showMessage(signupForm, `Welcome, ${first}! Your private account is ready.`);
-    setTimeout(() => { window.location.href = 'index.html'; }, 700);
+    finishSignIn(signupForm, first);
   });
 }
 
@@ -225,8 +237,7 @@ if (loginForm) {
       userKey: userKey
     });
 
-    showMessage(loginForm, `Welcome back, ${userProfile.first || capName}! You are signed in.`);
-    setTimeout(() => { window.location.href = 'index.html'; }, 700);
+    finishSignIn(loginForm, userProfile.first || capName);
   });
 }
 
@@ -260,7 +271,7 @@ if (profileForm) {
       email: updatedEmail
     });
 
-    showMessage(profileForm, 'Profile details saved securely to your private account.');
+    showMessage(profileForm, 'Profile details saved on this device.');
     updateAuthUI();
   });
 }

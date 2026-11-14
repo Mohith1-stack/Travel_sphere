@@ -35,6 +35,87 @@ function getSession() {
   return (session && session.signedIn) ? session : null;
 }
 
+// Require a local demo session before opening the travel pages.
+function getPostAuthDestination() {
+  const requested = new URLSearchParams(window.location.search).get('returnTo');
+  if (!requested) return 'index.html';
+
+  try {
+    const destination = new URL(requested, window.location.href);
+    const page = (destination.pathname.split('/').pop() || '').replace(/\.html$/i, '').toLowerCase();
+    if (destination.origin !== window.location.origin || ['login', 'signup'].includes(page)) {
+      return 'index.html';
+    }
+    return `${destination.pathname}${destination.search}${destination.hash}`;
+  } catch {
+    return 'index.html';
+  }
+}
+
+function beginSignInRedirect() {
+  const currentPage = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  const returnTo = currentPage === '/' ? 'index.html' : currentPage;
+  const overlay = document.createElement('div');
+  overlay.className = 'auth-transition';
+  overlay.setAttribute('role', 'status');
+  overlay.setAttribute('aria-live', 'polite');
+  overlay.innerHTML = `
+    <div class="auth-transition-card">
+      <span class="auth-transition-mark" aria-hidden="true">✦</span>
+      <p class="eyebrow">TravelSphere</p>
+      <h1>Getting your trip space ready</h1>
+      <span class="auth-spinner" aria-hidden="true"></span>
+      <p class="auth-transition-copy">Please wait while we take you to sign in.</p>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.body.setAttribute('aria-busy', 'true');
+  window.setTimeout(() => {
+    const query = new URLSearchParams({ returnTo });
+    window.location.replace(`login.html?${query.toString()}`);
+  }, 450);
+}
+
+function showWelcomeMessage() {
+  let welcome;
+  try {
+    welcome = JSON.parse(sessionStorage.getItem('ts-welcome-message') || 'null');
+    sessionStorage.removeItem('ts-welcome-message');
+  } catch {
+    return;
+  }
+  if (!welcome?.name) return;
+
+  const toast = document.createElement('aside');
+  toast.className = 'auth-welcome-toast';
+  toast.setAttribute('role', 'status');
+  toast.innerHTML = `
+    <span class="auth-welcome-icon" aria-hidden="true">✦</span>
+    <span><strong></strong>
+    <small>Thanks for joining us. We hope you enjoy planning your next journey.</small></span>
+    <button class="auth-welcome-close" type="button" aria-label="Dismiss welcome message">×</button>
+  `;
+  toast.querySelector('strong').textContent = `Welcome to TravelSphere, ${welcome.name}!`;
+  document.body.appendChild(toast);
+  toast.querySelector('.auth-welcome-close')?.addEventListener('click', () => toast.remove());
+  window.setTimeout(() => toast.remove(), 6500);
+}
+
+const currentPageName = (window.location.pathname.split('/').filter(Boolean).pop() || 'index').replace(/\.html$/i, '').toLowerCase();
+const isPublicAuthPage = ['login', 'signup'].includes(currentPageName);
+if (!isPublicAuthPage && !getSession()) beginSignInRedirect();
+else showWelcomeMessage();
+
+if (isPublicAuthPage) {
+  const returnTo = new URLSearchParams(window.location.search).get('returnTo');
+  if (returnTo) {
+    document.querySelectorAll('a[href="login.html"], a[href="signup.html"]').forEach((link) => {
+      const page = link.getAttribute('href');
+      link.href = `${page}?returnTo=${encodeURIComponent(returnTo)}`;
+    });
+  }
+}
+
 // Compute an isolated user storage key (or ts_guest for unauthenticated visitors)
 function getActiveUserKey() {
   const session = getSession();
