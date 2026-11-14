@@ -10,7 +10,7 @@ if (compareForm) {
     if (leftHeader) leftHeader.textContent = first;
     if (rightHeader) rightHeader.textContent = second;
     
-    showMessage(compareForm, `Fetching live external data from Wikipedia & Open-Meteo for ${first} and ${second}…`);
+    showMessage(compareForm, `Comparing ${first} and ${second}…`);
 
     try {
       const [w1, w2] = await Promise.all([
@@ -36,8 +36,8 @@ if (compareForm) {
         tableBody.innerHTML = `
           <tr>
             <td><strong>Live Weather</strong></td>
-            <td><strong>${t1}</strong> (${weath1 ? (weath1.current.weather_code === 0 ? '☀️ Clear' : '🌤️ Current') : 'Open-Meteo Service'})</td>
-            <td><strong>${t2}</strong> (${weath2 ? (weath2.current.weather_code === 0 ? '☀️ Clear' : '🌤️ Current') : 'Open-Meteo Service'})</td>
+            <td><strong>${t1}</strong> (${weath1 ? (weath1.current.weather_code === 0 ? '☀️ Clear' : '🌤️ Current') : 'Unavailable'})</td>
+            <td><strong>${t2}</strong> (${weath2 ? (weath2.current.weather_code === 0 ? '☀️ Clear' : '🌤️ Current') : 'Unavailable'})</td>
           </tr>
           <tr>
             <td><strong>Encyclopedia Profile</strong></td>
@@ -46,22 +46,22 @@ if (compareForm) {
           </tr>
           <tr>
             <td><strong>Official Coordinates</strong></td>
-            <td>${lat1 !== undefined ? `${lat1.toFixed(2)}°, ${lon1.toFixed(2)}°` : 'Via Wikipedia'}</td>
-            <td>${lat2 !== undefined ? `${lat2.toFixed(2)}°, ${lon2.toFixed(2)}°` : 'Via Wikipedia'}</td>
+            <td>${lat1 !== undefined ? `${lat1.toFixed(2)}°, ${lon1.toFixed(2)}°` : 'Unavailable'}</td>
+            <td>${lat2 !== undefined ? `${lat2.toFixed(2)}°, ${lon2.toFixed(2)}°` : 'Unavailable'}</td>
           </tr>
           <tr>
             <td><strong>Live Flight Search</strong></td>
-            <td><a href="https://www.google.com/travel/flights?q=flights+to+${encodeURIComponent(first)}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Search ${first} on Google Flights ↗</a></td>
-            <td><a href="https://www.google.com/travel/flights?q=flights+to+${encodeURIComponent(second)}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Search ${second} on Google Flights ↗</a></td>
+            <td><a href="https://www.google.com/travel/flights?q=flights+to+${encodeURIComponent(first)}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Find flights ↗</a></td>
+            <td><a href="https://www.google.com/travel/flights?q=flights+to+${encodeURIComponent(second)}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Find flights ↗</a></td>
           </tr>
           <tr>
-            <td><strong>Verified Wikipedia Article</strong></td>
-            <td><a href="${w1?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(first)}`}" target="_blank" rel="noopener" style="color:var(--text-main); text-decoration:underline;">Read ${first} on Wikipedia ↗</a></td>
-            <td><a href="${w2?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(second)}`}" target="_blank" rel="noopener" style="color:var(--text-main); text-decoration:underline;">Read ${second} on Wikipedia ↗</a></td>
+            <td><strong>More Details</strong></td>
+            <td><a href="${w1?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(first)}`}" target="_blank" rel="noopener" style="color:var(--text-main); text-decoration:underline;">Explore ${first} ↗</a></td>
+            <td><a href="${w2?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(second)}`}" target="_blank" rel="noopener" style="color:var(--text-main); text-decoration:underline;">Explore ${second} ↗</a></td>
           </tr>
         `;
       }
-      showMessage(compareForm, `Live intelligence updated from Wikipedia & Open-Meteo.`);
+      showMessage(compareForm, 'Comparison updated.');
     } catch (err) {
       console.warn("Compare error:", err);
       showMessage(compareForm, `Comparison updated for ${first} and ${second}.`);

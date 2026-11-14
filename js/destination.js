@@ -6,13 +6,13 @@ if (destinationTitle) {
   destinationTitle.textContent = destination;
   
   const queryEl = document.getElementById('destination-query');
-  if (queryEl) queryEl.textContent = `Connecting to Wikipedia & Open-Meteo for ${destination}…`;
+  if (queryEl) queryEl.textContent = `Loading details for ${destination}…`;
 
   const overviewEl = document.getElementById('dest-overview');
-  if (overviewEl) overviewEl.textContent = 'Fetching verified encyclopedic overview from Wikipedia…';
+  if (overviewEl) overviewEl.textContent = 'Loading destination overview…';
 
   const weatherEl = document.getElementById('dest-weather');
-  if (weatherEl) weatherEl.textContent = 'Connecting to Open-Meteo live satellite & meteorological service…';
+  if (weatherEl) weatherEl.textContent = 'Loading current weather…';
 
   const saveButton = document.getElementById('dest-save-btn');
   if (saveButton) saveButton.dataset.saveDestination = destination;
@@ -29,12 +29,12 @@ if (destinationTitle) {
       if (wikiRes.ok) {
         const wikiData = await wikiRes.json();
         destinationTitle.textContent = wikiData.title || destination;
-        if (queryEl) queryEl.textContent = wikiData.description ? `Official Profile: ${wikiData.description}` : `Live encyclopedia profile for ${destination}`;
-        if (overviewEl) overviewEl.textContent = wikiData.extract || 'Overview sourced live from Wikipedia.';
+        if (queryEl) queryEl.textContent = wikiData.description ? wikiData.description : `Explore ${destination} and plan your visit.`;
+        if (overviewEl) overviewEl.textContent = wikiData.extract || `Discover the highlights of ${destination}.`;
         
         const tagsEl = document.getElementById('dest-tags');
         if (tagsEl) {
-          tagsEl.innerHTML = `<a href="${wikiData.content_urls?.desktop?.page || '#'}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Verified Wikipedia Article ↗</a>`;
+          tagsEl.innerHTML = `<a href="${wikiData.content_urls?.desktop?.page || '#'}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">More about ${destination} ↗</a>`;
         }
 
         // Show official Wikimedia photograph
@@ -44,7 +44,7 @@ if (destinationTitle) {
           imgCard.style.display = 'block';
           imgCard.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url("${imgUrl}")`;
           const subText = imgCard.querySelector('p');
-          if (subText) subText.textContent = `Official photograph of ${wikiData.title} from Wikimedia Commons.`;
+          if (subText) subText.textContent = `A view of ${wikiData.title}.`;
         }
 
         // Fetch live weather using coordinates
@@ -67,7 +67,7 @@ if (destinationTitle) {
             else if (code >= 80) condition = '🌦️ Rain showers';
             weatherEl.textContent = `Current Conditions: ${condition} · ${Math.round(temp)}°C · Humidity ${curr.relative_humidity_2m}% · Wind ${Math.round(curr.wind_speed_10m)} km/h`;
             const weatherTags = document.getElementById('dest-weather-tags');
-            if (weatherTags) weatherTags.textContent = 'Live satellite data from Open-Meteo';
+            if (weatherTags) weatherTags.textContent = 'Current weather';
           }
         }
 

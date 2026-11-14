@@ -2690,45 +2690,17 @@ html[data-theme="light"] .hero {
   height: 100%;
   object-fit: cover;
   object-position: 67% center;
-  transition: opacity 180ms ease, transform 500ms ease;
+  transform: scale(1.025);
+  animation: heroBreathing 14s ease-in-out infinite;
+  transition: opacity 700ms ease;
 }
 
 .hero-visual:hover img {
-  transform: scale(1.025);
+  animation-play-state: paused;
 }
 
 .hero-visual img.is-changing {
-  opacity: .2;
-  transform: scale(1.035);
-}
-
-.hero-slide-toggle {
-  position: absolute;
-  z-index: 2;
-  top: 15px;
-  right: 15px;
-  display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, .7);
-  border-radius: 50%;
-  color: #fff;
-  background: rgba(24, 35, 39, .48);
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  font: 700 1rem/1 sans-serif;
-  transition: background 160ms ease, transform 160ms ease;
-}
-
-.hero-slide-toggle:hover {
-  background: rgba(24, 35, 39, .72);
-  transform: scale(1.05);
-}
-
-.hero-slide-toggle:focus-visible {
-  outline: 3px solid #fff;
-  outline-offset: 3px;
+  opacity: 0;
 }
 
 .hero-visual-caption {
@@ -2764,32 +2736,9 @@ html[data-theme="light"] .hero {
   font-size: .82rem;
 }
 
-.hero-visual-credit {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 6px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(37, 48, 54, .1);
-  color: var(--muted);
-  font-size: .68rem;
-}
-
-.hero-visual-credit a {
-  color: var(--muted);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.hero-visual-credit a:hover {
-  color: var(--accent);
-}
-
-.hero-visual-credit [data-hero-count] {
-  flex: 0 0 auto;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: .08em;
+@keyframes heroBreathing {
+  0%, 100% { transform: scale(1.025); }
+  50% { transform: scale(1.065); }
 }
 
 .card {
@@ -3024,8 +2973,9 @@ select:hover {
     transform: none;
   }
 
-  .hero-visual img,
-  .hero-slide-toggle {
+  .hero-visual img {
+    animation: none;
+    transform: none;
     transition: none;
   }
 }

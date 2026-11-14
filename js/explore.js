@@ -53,7 +53,7 @@
       directTime: directStr,
       connectingTime: `${connStr} (+${diffStr})`,
       timeSaved: `Non-stop direct route saves ~${diffStr} travel time compared to connecting 1-stop flights.`,
-      verdict: `Direct non-stop flight is the fastest choice (~${diffStr} saved). Compare real-time airline tickets live on <a href="https://www.google.com/travel/flights?q=flights+to+${encodeURIComponent(destName)}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Google Flights ↗</a>.`
+      verdict: `Direct non-stop flight is the fastest choice (~${diffStr} saved). <a href="https://www.google.com/travel/flights?q=flights+to+${encodeURIComponent(destName)}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">View flight options ↗</a>.`
     };
   }
 
@@ -79,7 +79,7 @@
     const finalLat = coords ? coords[0] : (wikiData?.coordinates?.lat || 0);
     const finalLng = coords ? coords[1] : (wikiData?.coordinates?.lon || 0);
     const finalTitle = wikiData?.title || destName;
-    const finalDesc = wikiData?.extract || `Official Wikipedia encyclopedic overview for ${destName}.`;
+    const finalDesc = wikiData?.extract || `Explore the highlights of ${destName}.`;
     const bannerImage = wikiData?.thumbnail?.source || wikiData?.originalimage?.source || null;
     const wikiArticleUrl = wikiData?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(destName)}`;
 
@@ -536,13 +536,13 @@
 
       // Header & Loading indicators
       const badgeEl = document.getElementById('result-badge');
-      if (badgeEl) badgeEl.textContent = '📡 Fetching live data from Wikipedia & Open-Meteo…';
+      if (badgeEl) badgeEl.textContent = '📍 Preparing destination guide…';
 
       const titleEl = document.getElementById('result-title');
       if (titleEl) titleEl.textContent = `${dest.name}, ${dest.country || ''}`;
 
       const descEl = document.getElementById('result-desc');
-      if (descEl) descEl.textContent = 'Connecting to external encyclopedia and weather APIs…';
+      if (descEl) descEl.textContent = 'Loading destination details and current weather…';
 
       const weatherEl = document.getElementById('result-weather');
       if (weatherEl) weatherEl.textContent = 'Fetching live conditions…';
@@ -564,7 +564,7 @@
       }
 
       // Update Header with verified Wikipedia title and description
-      if (badgeEl) badgeEl.textContent = `📡 Live Data: Wikipedia & Open-Meteo (${live.wikiSubtitle || 'Verified Source'})`;
+      if (badgeEl) badgeEl.textContent = `📍 ${live.wikiSubtitle || 'Destination Guide'}`;
       if (titleEl) titleEl.textContent = `${live.wikiTitle}${live.countryName ? ', ' + live.countryName : ''}`;
       if (descEl) descEl.textContent = live.wikiExtract;
 
@@ -594,7 +594,7 @@
       // Flight Route Intelligence (Fastest vs Connecting) with direct links to Google Flights
       const flightAirlineEl = document.getElementById('result-flight-airline');
       if (flightAirlineEl) {
-        flightAirlineEl.innerHTML = `Search Live Flights on <a href="${live.googleFlightsUrl}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Google Flights ↗</a>`;
+        flightAirlineEl.innerHTML = `<a href="${live.googleFlightsUrl}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">View live flight options ↗</a>`;
       }
 
       const flightFastestTimeEl = document.getElementById('result-flight-fastest-time');
@@ -602,7 +602,7 @@
 
       const flightHubsEl = document.getElementById('result-flight-hubs');
       if (flightHubsEl) {
-        flightHubsEl.innerHTML = `<a href="${live.googleFlightsUrl}" target="_blank" rel="noopener" style="color:var(--text-main); text-decoration:underline;">Compare live departure times & carrier routes on Google Flights ↗</a>`;
+        flightHubsEl.innerHTML = `<a href="${live.googleFlightsUrl}" target="_blank" rel="noopener" style="color:var(--text-main); text-decoration:underline;">Compare departure times and routes ↗</a>`;
       }
 
       const flightConnectingAirlineEl = document.getElementById('result-flight-connecting-airline');
@@ -630,23 +630,23 @@
 
       const foodCultureEl = document.getElementById('result-food-culture');
       if (foodCultureEl) {
-        foodCultureEl.innerHTML = `<em>Source: Wikipedia — <strong>${live.cuisine.title}</strong></em><br>${live.cuisine.extract}`;
+        foodCultureEl.innerHTML = `<strong>${live.cuisine.title}</strong><br>${live.cuisine.extract}`;
       }
 
       const foodSpotsEl = document.getElementById('result-food-spots');
       if (foodSpotsEl) {
-        foodSpotsEl.innerHTML = `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest.name + ' top restaurants food markets')}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Explore Local Food Markets & Restaurants on Google Maps ↗</a>`;
+        foodSpotsEl.innerHTML = `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest.name + ' top restaurants food markets')}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Explore local food markets & restaurants ↗</a>`;
       }
 
       const foodPriceEl = document.getElementById('result-food-price');
       if (foodPriceEl) {
-        foodPriceEl.textContent = `Documented under ${live.cuisine.title}`;
+        foodPriceEl.textContent = `${live.cuisine.title} favourites`;
       }
 
       // Bottom Details: Sights, Season, Tips
       const spotsEl = document.getElementById('result-spots');
       if (spotsEl) {
-        spotsEl.innerHTML = `<a href="${live.googleMapsUrl}" target="_blank" rel="noopener" style="color:var(--text-main); text-decoration:underline;">View Top Rated Sights on Google Maps ↗</a>`;
+        spotsEl.innerHTML = `<a href="${live.googleMapsUrl}" target="_blank" rel="noopener" style="color:var(--text-main); text-decoration:underline;">Explore nearby sights ↗</a>`;
       }
 
       const seasonEl = document.getElementById('result-season');
@@ -656,7 +656,7 @@
 
       const tipEl = document.getElementById('result-tip');
       if (tipEl) {
-        tipEl.innerHTML = `Official encyclopedia overview: <em>${live.wikiSubtitle || 'Global destination'}</em>. Read the complete verified article on <a href="${live.wikiUrl}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Wikipedia ↗</a>.`;
+        tipEl.innerHTML = `Discover more about <em>${live.wikiSubtitle || 'this destination'}</em>. <a href="${live.wikiUrl}" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:underline;">Read more ↗</a>.`;
       }
 
       // Action Links
@@ -678,9 +678,9 @@
         }
       }
       externalLinksBar.innerHTML = `
-        <a href="${live.googleFlightsUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px; border-color:rgba(212,175,55,0.4);">✈️ Search Flights on Google Flights ↗</a>
-        <a href="${live.googleMapsUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px; border-color:rgba(212,175,55,0.4);">🗺️ Explore on Google Maps ↗</a>
-        <a href="${live.wikiUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px;">📖 Read on Wikipedia ↗</a>
+        <a href="${live.googleFlightsUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px; border-color:rgba(212,175,55,0.4);">✈️ Find flights ↗</a>
+        <a href="${live.googleMapsUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px; border-color:rgba(212,175,55,0.4);">🗺️ Explore map ↗</a>
+        <a href="${live.wikiUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px;">📖 Read more ↗</a>
       `;
 
       // Smooth scroll towards the result card
@@ -711,8 +711,8 @@
 
     const popupHtml = `
       <div class="map-popup-title">✦ ${dest.name}, ${dest.country}</div>
-      <div class="map-popup-meta">Live External Intelligence</div>
-      <div class="map-popup-desc">Click below to fetch live Wikipedia encyclopedia overview, authentic cuisine & satellite weather.</div>
+      <div class="map-popup-meta">Destination Guide</div>
+      <div class="map-popup-desc">Explore destination details, local cuisine and current weather.</div>
       <div style="display:flex; gap:8px; align-items:center; margin-top:8px;">
         <button type="button" class="map-popup-btn js-popup-locate" data-dest-name="${dest.name}">✈️ Live Route & Details</button>
         <a class="map-popup-btn" style="background: rgba(255,255,255,0.15);" href="destination.html?destination=${encodeURIComponent(dest.name)}">Details →</a>

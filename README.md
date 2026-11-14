@@ -11,7 +11,7 @@ TravelSphere is a responsive travel discovery and planning website built with pl
 - **Compare destinations:** Compare destination profiles and current weather, with links to flight searches.
 - **Plan a budget:** Add common trip expenses and calculate a total in a selected currency.
 - **Save places:** Keep a list of destinations in the current browser and manage profile preferences in the demo interface.
-- **Destination photography:** The homepage hero rotates through four real destination photographs once per second, with photo credits and a pause control. The carousel starts paused when the device requests reduced motion.
+- **Destination photography:** The homepage hero gently breathes and rotates through four destination photographs every eight seconds.
 - **Sign-in flow:** Show a branded redirect for guests, return them to their requested page after sign-in, and welcome them into the app.
 - **Responsive layout:** Use the site on desktop, tablet, or phone.
 
@@ -78,9 +78,9 @@ Travel_sphere/
 - `js/budget.js` — budget calculator.
 - `js/auth.js` — demo profile, sign-in, sign-up, and preferences behavior.
 
-## Data sources and requirements
+## Online features
 
-The map uses [Leaflet](https://leafletjs.com/) and its configured map tiles. Destination summaries and images come from Wikipedia and Wikimedia Commons; the homepage hero and featured destination cards use real photographs hosted by [Unsplash](https://unsplash.com/), with the active hero photo linking to its photographer's photo page. Current weather comes from [Open-Meteo](https://open-meteo.com/). The site also links to Google Maps and Google Flights for searches. These services require an internet connection and may be unavailable or rate-limited; some content may then be missing.
+The map, destination details, photos, weather, and travel searches use online services and need an internet connection. If an online service is unavailable or rate-limited, some details may be missing.
 
 ## Deployment
 

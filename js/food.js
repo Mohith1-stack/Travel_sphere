@@ -1,4 +1,4 @@
-// Dynamic Regional Food Explorer (food.html) - Sourced Live from Wikipedia & Google
+// Dynamic regional food explorer (food.html).
 (function initFoodPage() {
   const spotlight = document.getElementById('food-live-spotlight');
   if (!spotlight) return;
@@ -12,7 +12,7 @@
 
   async function loadCuisine(place, countryHint) {
     if (statusEl) statusEl.textContent = `Fetching live culinary data for ${place}…`;
-    if (descEl) descEl.textContent = `Connecting to Wikipedia's culinary database for ${place}…`;
+    if (descEl) descEl.textContent = `Finding food highlights for ${place}…`;
     if (titleEl) titleEl.textContent = `${place} Food Culture`;
 
     if (googleLink) googleLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('best food in ' + place)}`;
@@ -37,7 +37,7 @@
               if (titleEl) titleEl.textContent = `${data.title} (${place})`;
               if (descEl) descEl.textContent = data.extract;
               if (wikiLink) wikiLink.href = data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(term)}`;
-              if (statusEl) statusEl.textContent = `Live data from Wikipedia (${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})})`;
+              if (statusEl) statusEl.textContent = `Updated ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
               loaded = true;
               break;
             }
@@ -59,7 +59,7 @@
                 if (titleEl) titleEl.textContent = `${d.title} (${place})`;
                 if (descEl) descEl.textContent = d.extract;
                 if (wikiLink) wikiLink.href = d.content_urls?.desktop?.page || '#';
-                if (statusEl) statusEl.textContent = `Live data from Wikipedia`;
+                if (statusEl) statusEl.textContent = 'Cuisine guide updated';
                 loaded = true;
               }
             }
@@ -68,7 +68,7 @@
       }
 
       if (!loaded) {
-        if (descEl) descEl.textContent = `Explore authentic dining experiences, regional specialties, and signature recipes from ${place}. Search live culinary hotspots on Google Maps.`;
+        if (descEl) descEl.textContent = `Explore authentic dining experiences, regional specialties, and signature recipes from ${place}. Find popular places to eat nearby.`;
         if (wikiLink) wikiLink.href = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(place + ' cuisine')}`;
         if (statusEl) statusEl.textContent = `Search complete`;
       }
