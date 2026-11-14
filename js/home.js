@@ -99,6 +99,68 @@ if (heroImage) {
   if (!paused) start();
 }
 
+// Give the homepage food cards a fresh mix on each visit. Keep the previous
+// selection out of the next draw so the content feels new after reloading.
+const foodCards = [...document.querySelectorAll('.food-showcase .food-card')];
+
+if (foodCards.length) {
+  const foodHighlights = [
+    { id: 'tokyo-sushi', icon: '🍣', title: 'Tokyo Sushi', description: 'Fresh sushi, elegant omakase and unforgettable Japanese dining experiences.', region: 'Japan · Fine dining' },
+    { id: 'naples-pizza', icon: '🍕', title: 'Neapolitan Pizza', description: 'Soft fermented dough, blistered crust and the timeless flavours of Naples.', region: 'Italy · Classic' },
+    { id: 'hyderabad-biryani', icon: '🥘', title: 'Hyderabadi Biryani', description: 'Fragrant rice, rich spices and a legendary culinary tradition from India.', region: 'India · Heritage' },
+    { id: 'bangkok-pad-thai', icon: '🍜', title: 'Bangkok Pad Thai', description: 'Tamarind, lime and wok-fried noodles make this a Bangkok street-food favourite.', region: 'Thailand · Street food' },
+    { id: 'paris-croissants', icon: '🥐', title: 'Parisian Croissants', description: 'Golden, flaky layers and buttery pastries from the cafés of Paris.', region: 'France · Bakery' },
+    { id: 'oaxaca-tacos', icon: '🌮', title: 'Oaxacan Tacos', description: 'Slow-cooked fillings, handmade tortillas and the bold flavours of Oaxaca.', region: 'Mexico · Regional' },
+    { id: 'istanbul-baklava', icon: '🍯', title: 'Istanbul Baklava', description: 'Crisp pastry, toasted nuts and a delicate syrup in a beloved Turkish dessert.', region: 'Türkiye · Sweet' },
+    { id: 'hanoi-pho', icon: '🍲', title: 'Hanoi Pho', description: 'A fragrant broth, fresh herbs and rice noodles in Vietnam’s iconic soup.', region: 'Vietnam · Comfort food' },
+    { id: 'marrakech-tagine', icon: '🍛', title: 'Marrakech Tagine', description: 'Slow-simmered spices and tender ingredients served in a classic clay pot.', region: 'Morocco · Slow-cooked' },
+    { id: 'lima-ceviche', icon: '🐟', title: 'Lima Ceviche', description: 'Fresh seafood, citrus and a bright touch of chilli from Peru’s coast.', region: 'Peru · Coastal' },
+    { id: 'athens-mezze', icon: '🫒', title: 'Athens Mezze', description: 'A colourful spread of olives, dips and small plates made for sharing.', region: 'Greece · Shared plates' },
+    { id: 'new-york-bagels', icon: '🥯', title: 'New York Bagels', description: 'A chewy, kettle-boiled classic served with favourite city-style toppings.', region: 'United States · Deli' }
+  ];
+  const selectionKey = 'travelSphere.homeFoodSelection';
+  let previousSelection = [];
+
+  try {
+    const storedSelection = JSON.parse(localStorage.getItem(selectionKey) || '[]');
+    previousSelection = Array.isArray(storedSelection) ? storedSelection : [];
+  } catch {
+    previousSelection = [];
+  }
+
+  const shuffle = (items) => {
+    const result = [...items];
+    for (let index = result.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [result[index], result[randomIndex]] = [result[randomIndex], result[index]];
+    }
+    return result;
+  };
+
+  const freshHighlights = foodHighlights.filter((item) => !previousSelection.includes(item.id));
+  const drawFrom = freshHighlights.length >= foodCards.length ? freshHighlights : foodHighlights;
+  const selection = shuffle(drawFrom).slice(0, foodCards.length);
+
+  foodCards.forEach((card, index) => {
+    const item = selection[index];
+    if (!item) return;
+    const icon = card.querySelector('.food-icon');
+    const heading = card.querySelector('h3');
+    const copy = card.querySelector('p');
+    const region = card.querySelector('.card-actions .muted');
+    if (icon) icon.textContent = item.icon;
+    if (heading) heading.textContent = item.title;
+    if (copy) copy.textContent = item.description;
+    if (region) region.textContent = item.region;
+  });
+
+  try {
+    localStorage.setItem(selectionKey, JSON.stringify(selection.map((item) => item.id)));
+  } catch {
+    // The cards still randomize when browser storage is unavailable.
+  }
+}
+
 
 // Filter the mood page using the selected radio button.
 document.querySelectorAll('.mood-filter').forEach((form) => {

@@ -12,6 +12,7 @@ TravelSphere is a responsive travel discovery and planning website built with pl
 - **Plan a budget:** Add common trip expenses and calculate a total in a selected currency.
 - **Save places:** Keep a list of destinations in the current browser and manage profile preferences in the demo interface.
 - **Destination photography:** The homepage hero gently breathes and rotates through six destination photographs every eight seconds, over a soft landscape photo background.
+- **Rotating food highlights:** The homepage selects three dishes from a curated collection on each visit and avoids repeating the last selection.
 - **Sign-in flow:** Show a branded redirect for guests, return them to their requested page after sign-in, and welcome them into the app.
 - **Responsive layout:** Use the site on desktop, tablet, or phone.
 
