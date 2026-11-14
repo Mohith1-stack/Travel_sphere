@@ -11,6 +11,7 @@ TravelSphere is a responsive travel discovery and planning website built with pl
 - **Compare destinations:** Compare destination profiles and current weather, with links to flight searches.
 - **Plan a budget:** Add common trip expenses and calculate a total in a selected currency.
 - **Save places:** Keep a list of destinations in the current browser and manage profile preferences in the demo interface.
+- **Destination photography:** Featured destination cards use gentle breathing motion that respects reduced-motion preferences.
 - **Sign-in flow:** Show a branded redirect for guests, return them to their requested page after sign-in, and welcome them into the app.
 - **Responsive layout:** Use the site on desktop, tablet, or phone.
 
@@ -62,6 +63,9 @@ Travel_sphere/
 ├── settings.html              # Demo preferences
 ├── style.css                  # Shared styles and responsive layouts
 ├── travel_hero.webp           # Homepage destination photograph
+├── santorini.webp             # Santorini destination card photo
+├── kyoto.webp                 # Kyoto destination card photo
+├── banff.webp                 # Banff destination card photo
 ├── js/                         # Page scripts and shared behavior
 ├── vercel.json                 # Vercel clean URL and header configuration
 └── JAVASCRIPT_BEGINNER_GUIDE.md

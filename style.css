@@ -2451,7 +2451,8 @@ html[data-theme="light"] .map-arena {
 
 .auth-welcome-toast {
   position: fixed;
-  top: calc(18px + env(safe-area-inset-top));
+  top: auto;
+  bottom: calc(18px + env(safe-area-inset-bottom));
   right: 18px;
   z-index: 1200;
   display: grid;
@@ -2513,7 +2514,8 @@ html[data-theme="light"] .map-arena {
 
 @media (max-width: 620px) {
   .auth-welcome-toast {
-    top: calc(12px + env(safe-area-inset-top));
+    top: auto;
+    bottom: calc(12px + env(safe-area-inset-bottom));
     right: 10px;
     width: calc(100vw - 20px);
   }
@@ -2875,5 +2877,105 @@ select:hover {
   .card:hover,
   .btn:hover {
     transform: none;
+  }
+}
+
+.destination-card {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.destination-card::before {
+  display: none;
+}
+
+.destination-photo {
+  position: relative;
+  flex: 0 0 auto;
+  aspect-ratio: 1.55 / 1;
+  overflow: hidden;
+  background: #e4e9e7;
+}
+
+.destination-photo::after {
+  content: "";
+  position: absolute;
+  inset: 42% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(20, 31, 35, .3));
+  pointer-events: none;
+}
+
+.destination-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.035);
+  animation: destinationBreathing 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.destination-card:nth-child(2) .destination-photo img {
+  animation-delay: -2.7s;
+}
+
+.destination-card:nth-child(3) .destination-photo img {
+  animation-delay: -5.3s;
+}
+
+.destination-photo-label {
+  position: absolute;
+  z-index: 1;
+  left: 15px;
+  bottom: 14px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(28, 42, 45, .36);
+  backdrop-filter: blur(8px);
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.destination-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px 22px;
+}
+
+.destination-card-content > .card-actions:first-of-type {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.destination-card-content > .card-actions + .card-actions {
+  margin-top: 12px;
+}
+
+@keyframes destinationBreathing {
+  0%, 100% { transform: scale(1.035); }
+  50% { transform: scale(1.075); }
+}
+
+@media (max-width: 620px) {
+  .destination-photo {
+    aspect-ratio: 1.7 / 1;
+  }
+
+  .destination-card-content {
+    padding: 18px 18px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .destination-photo img {
+    animation: none;
+    transform: scale(1.035);
+    will-change: auto;
   }
 }
