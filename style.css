@@ -2184,3 +2184,179 @@ html[data-theme="light"] .map-arena {
 .end-actions {
   justify-content: flex-end;
 }
+
+/* =========================================================
+   TABLET AND TOUCH FINISHING
+   ========================================================= */
+
+/* Keep cards and planning forms useful on tablets instead of
+   forcing every section into a long single-column page. */
+@media (min-width: 621px) and (max-width: 1024px) {
+  .page-shell {
+    width: min(calc(100% - 32px), var(--max));
+  }
+
+  .grid-3,
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-2,
+  .form-grid,
+  .season-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 620px) {
+  .site-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px 10px;
+    padding: 10px;
+  }
+
+  .brand {
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand-text {
+    font-size: .88rem;
+    letter-spacing: .1em;
+  }
+
+  .primary-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    padding: 0 0 2px;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .primary-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .primary-nav ul {
+    width: max-content;
+    gap: 5px;
+  }
+
+  .primary-nav a,
+  .tool-chip,
+  .tool-nav > li > details > summary {
+    min-height: 44px;
+  }
+
+  .tool-nav {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 2px;
+  }
+
+  .tool-chip {
+    padding: 7px 8px;
+    font-size: .8rem;
+  }
+
+  .page-shell {
+    width: min(calc(100% - 20px), var(--max));
+    margin-top: 16px;
+    margin-bottom: 40px;
+  }
+
+  .page-panel {
+    padding: clamp(18px, 5vw, 24px);
+    border-radius: 22px;
+  }
+
+  .grid-3,
+  .grid-2,
+  .form-grid,
+  .season-facts,
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero {
+    min-height: 0;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .hero .page-title {
+    font-size: clamp(2.55rem, 12vw, 4rem);
+  }
+
+  .hero-copy {
+    font-size: 1rem;
+  }
+
+  .tool-panel {
+    position: fixed;
+    top: 128px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-height: calc(100dvh - 148px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-text {
+    font-size: .78rem;
+    letter-spacing: .07em;
+  }
+
+  .tool-chip {
+    gap: 4px;
+    padding-inline: 6px;
+    font-size: .74rem;
+  }
+
+  .page-title {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Avoid hover-only motion on touchscreens, where it can feel sticky. */
+@media (hover: none) {
+  .site-header:hover,
+  .card:hover,
+  .btn:hover,
+  .primary-nav a:hover,
+  .tool-chip:hover,
+  .tool-nav > li > details > summary:hover {
+    transform: none;
+  }
+
+  .card:hover::before {
+    height: 48px;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-padding-top: 110px;
+  }
+}
