@@ -140,7 +140,7 @@ function updateAuthUI() {
           <h1 class="page-title">Already Signed In</h1>
           <p class="page-subtitle">You are currently signed in as <strong>${escapeHtml(displayName)}</strong> (${escapeHtml(displayEmail)}).</p>
         </div>
-        <div style="background: rgba(130, 184, 159, 0.15); border: 1px solid rgba(130, 184, 159, 0.4); padding: 18px; border-radius: var(--radius-md); margin-bottom: 24px; text-align: center;">
+        <div style="background: var(--sage-soft); border: 1px solid var(--sage); padding: 18px; border-radius: var(--radius-md); margin-bottom: 24px; text-align: center;">
           <p style="margin: 0; font-size: 0.95rem; color: var(--text);">
             Your personal travel collection and settings are active. To sign in with a different account, visit Settings to sign out.
           </p>

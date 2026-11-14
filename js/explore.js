@@ -384,7 +384,7 @@
     if (activeFlightPath) map.removeLayer(activeFlightPath);
     const arcPoints = generateArcPoints([userLocation.lat, userLocation.lng], [destLat, destLng]);
     activeFlightPath = L.polyline(arcPoints, {
-      color: '#ef233c',
+      color: '#b63d49',
       weight: 3.5,
       opacity: 0.9,
       className: 'flight-path-animated'
@@ -508,7 +508,7 @@
     if (activeFlightPath) map.removeLayer(activeFlightPath);
     const arcPoints = generateArcPoints([userLocation.lat, userLocation.lng], [destLat, destLng]);
     activeFlightPath = L.polyline(arcPoints, {
-      color: '#ef233c',
+      color: '#b63d49',
       weight: 3.5,
       opacity: 0.9,
       className: 'flight-path-animated'
@@ -573,7 +573,7 @@
       if (bannerEl) {
         if (live.bannerImage) {
           bannerEl.style.display = 'block';
-          bannerEl.style.backgroundImage = `linear-gradient(to bottom, rgba(5, 15, 28, 0.1), rgba(5, 15, 28, 0.7)), url("${live.bannerImage}")`;
+          bannerEl.style.backgroundImage = `linear-gradient(to bottom, rgba(37, 43, 49, 0.1), rgba(37, 43, 49, 0.7)), url("${live.bannerImage}")`;
         } else {
           bannerEl.style.display = 'none';
         }
@@ -678,8 +678,8 @@
         }
       }
       externalLinksBar.innerHTML = `
-        <a href="${live.googleFlightsUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px; border-color:rgba(212,175,55,0.4);">✈️ Find flights ↗</a>
-        <a href="${live.googleMapsUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px; border-color:rgba(212,175,55,0.4);">🗺️ Explore map ↗</a>
+        <a href="${live.googleFlightsUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px; border-color:rgba(182,61,73,0.4);">✈️ Find flights ↗</a>
+        <a href="${live.googleMapsUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px; border-color:rgba(182,61,73,0.4);">🗺️ Explore map ↗</a>
         <a href="${live.wikiUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:0.85rem; padding:8px 14px;">📖 Read more ↗</a>
       `;
 
