@@ -1,6 +1,6 @@
 # TravelSphere JavaScript — Beginner Guide
 
-The JavaScript is now divided into small files inside the `js` folder.
+The JavaScript is divided into small files inside `assets/js/`.
 
 - `common.js` — shared helpers, browser storage, header search, saved places.
 - `home.js` — seasonal tabs and mood filter.
@@ -10,13 +10,13 @@ The JavaScript is now divided into small files inside the `js` folder.
 - `destination.js` — destination details, image, weather, and cuisine information.
 - `food.js` — cuisine search and cuisine suggestion chips.
 - `auth.js` — demo login/signup, profile, preferences, and settings.
-- `script_original_backup.js` — untouched original file kept as a backup; it is not loaded.
+- `../archive/legacy-script-backup.js` — original script backup; it is not loaded by the website.
 
 ## How to open the project
 Open `index.html` using your usual local server/live preview. Avoid opening multiple old copies of the project at the same time.
 
 ## How scripts connect
-Each HTML page loads `js/common.js` first, then the page's feature script, then `js/auth.js`. The `defer` attribute lets the browser finish reading the HTML before executing each script. The order matters because feature files reuse shared functions from `common.js`.
+Each HTML page loads `assets/js/common.js` first, then the page's feature script, then `assets/js/auth.js`. The `defer` attribute lets the browser finish reading the HTML before executing each script. The order matters because feature files reuse shared functions from `common.js`.
 
 ## Suggested learning order
 1. Start with `common.js`: variables, functions, localStorage, arrays, and click events.

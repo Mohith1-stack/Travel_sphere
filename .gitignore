@@ -1,4 +1,4 @@
-.DS_Store
+.vercel/
+node_modules/
 Thumbs.db
-*.log
-.vscode/
+.DS_Store

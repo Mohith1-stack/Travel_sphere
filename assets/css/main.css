@@ -1772,22 +1772,88 @@ html[data-theme="light"] .map-arena {
   position: relative;
 }
 
-.food-icon {
-  width: 64px;
-  height: 64px;
-  display: grid;
-  place-items: center;
-  margin-bottom: 16px;
-  border-radius: 18px;
-  background: rgba(182,61,73,.08);
-  border: 1px solid rgba(182,61,73,.14);
-  font-size: 2rem;
-  transition: transform 220ms ease, box-shadow 220ms ease;
+.food-card {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
 }
 
-.food-card:hover .food-icon {
-  transform: translateY(-4px) rotate(-4deg);
-  box-shadow: 0 12px 28px rgba(159,36,68,.14);
+.food-card-photo {
+  position: relative;
+  aspect-ratio: 1.72 / 1;
+  overflow: hidden;
+  background: var(--sage-soft);
+}
+
+.food-card-photo::after {
+  position: absolute;
+  inset: 42% 0 0;
+  content: "";
+  background: linear-gradient(180deg, transparent, rgba(37, 48, 54, .44));
+  pointer-events: none;
+}
+
+.food-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 420ms cubic-bezier(.2, .75, .25, 1);
+}
+
+.food-card:hover .food-card-photo img {
+  transform: scale(1.045);
+}
+
+.food-card-photo [data-food-region] {
+  position: absolute;
+  z-index: 1;
+  bottom: 14px;
+  left: 16px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, .65);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(37, 48, 54, .48);
+  backdrop-filter: blur(8px);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .025em;
+}
+
+.food-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 22px 24px 24px;
+}
+
+.food-card-content h3 {
+  margin: 0 0 10px;
+  font: 750 1.25rem/1.3 Manrope, sans-serif;
+  letter-spacing: -.025em;
+}
+
+.food-card-content p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: .96rem;
+}
+
+.food-card-content .card-actions {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.food-card-content .card-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-size: .92rem;
+  font-weight: 750;
 }
 
 .food-cta {
@@ -1824,6 +1890,14 @@ html[data-theme="light"] .map-arena {
 
   .footer-bottom span:last-child {
     text-align: left;
+  }
+
+  .food-card-photo {
+    aspect-ratio: 1.9 / 1;
+  }
+
+  .food-card-content {
+    padding: 19px 20px 21px;
   }
 }
 

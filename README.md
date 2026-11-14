@@ -1,6 +1,6 @@
 # TravelSphere
 
-TravelSphere is a responsive travel discovery and planning website built with plain HTML, CSS, and JavaScript. Explore destinations, browse ideas by mood or season, compare places, and keep a local list of trips you want to remember.
+TravelSphere is a responsive travel discovery and planning website built with HTML, CSS, and JavaScript. Explore destinations, find ideas by mood or season, compare places, and keep a local list of trips to remember.
 
 ## Features
 
@@ -12,7 +12,7 @@ TravelSphere is a responsive travel discovery and planning website built with pl
 - **Plan a budget:** Add common trip expenses and calculate a total in a selected currency.
 - **Save places:** Keep a list of destinations in the current browser and manage profile preferences in the demo interface.
 - **Destination photography:** The homepage hero gently breathes and rotates through six destination photographs every eight seconds, over a soft landscape photo background.
-- **Rotating food highlights:** The homepage selects three dishes from a curated collection on each visit and avoids repeating the last selection.
+- **Rotating food highlights:** The homepage features real food photography and selects three dishes from a curated collection on each visit, avoiding the previous selection.
 - **Sign-in flow:** Show a branded redirect for guests, return them to their requested page after sign-in, and welcome them into the app.
 - **Responsive layout:** Use the site on desktop, tablet, or phone.
 
@@ -54,30 +54,31 @@ Open this folder in VS Code, start the Live Server extension from `index.html`, 
 
 ```text
 Travel_sphere/
-├── index.html                 # Home page
-├── explore.html               # Interactive map
-├── destination.html           # Destination details
-├── mood*.html, season.html    # Curated discovery pages
-├── food.html, compare.html    # Food and comparison tools
-├── budget.html, saved.html    # Planning tools
-├── login.html, signup.html    # Demo account screens
-├── settings.html              # Demo preferences
-├── style.css                  # Shared styles and responsive layouts
-├── js/                         # Page scripts and shared behavior
-├── vercel.json                 # Vercel clean URL and header configuration
-└── JAVASCRIPT_BEGINNER_GUIDE.md
+├── index.html, explore.html, destination.html  # Main destination pages
+├── mood*.html, season.html                     # Curated discovery pages
+├── food.html, compare.html, budget.html         # Food and planning tools
+├── saved.html, login.html, signup.html          # Profile and saved places
+├── settings.html                                # Preferences
+├── assets/
+│   ├── css/main.css                             # Shared styles and responsive layouts
+│   └── js/                                      # Page scripts and shared behavior
+├── docs/javascript-beginner-guide.md           # JavaScript learning guide
+├── archive/legacy-script-backup.js              # Unused original script backup
+└── vercel.json                                  # Static deployment configuration
 ```
+
+Page files stay at the repository root so the existing static routes and destination links continue to work. Styles, scripts, and documentation live in dedicated folders.
 
 ### JavaScript modules
 
-- `js/common.js` — shared browser storage, saved destinations, header search, and common helpers.
-- `js/home.js` — mood and seasonal page interactions.
-- `js/explore.js` — interactive map and destination data.
-- `js/destination.js` — destination profile content.
-- `js/food.js` — cuisine explorer.
-- `js/compare.js` — destination comparison.
-- `js/budget.js` — budget calculator.
-- `js/auth.js` — demo profile, sign-in, sign-up, and preferences behavior.
+- `assets/js/common.js` — shared browser storage, saved destinations, header search, and common helpers.
+- `assets/js/home.js` — homepage food highlights, mood filters, and seasonal interactions.
+- `assets/js/explore.js` — interactive map and destination data.
+- `assets/js/destination.js` — destination profile content.
+- `assets/js/food.js` — cuisine explorer.
+- `assets/js/compare.js` — destination comparison.
+- `assets/js/budget.js` — budget calculator.
+- `assets/js/auth.js` — demo profile, sign-in, sign-up, and preferences behavior.
 
 ## Online features
 
@@ -93,4 +94,4 @@ This is a front-end demo. It has no backend, database, or real authentication. D
 
 ## Learning guide
 
-See [`JAVASCRIPT_BEGINNER_GUIDE.md`](JAVASCRIPT_BEGINNER_GUIDE.md) for an introduction to the page scripts and how they work together.
+See the [JavaScript beginner guide](docs/javascript-beginner-guide.md) for an introduction to the page scripts and how they work together.

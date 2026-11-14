@@ -105,18 +105,46 @@ const foodCards = [...document.querySelectorAll('.food-showcase .food-card')];
 
 if (foodCards.length) {
   const foodHighlights = [
-    { id: 'tokyo-sushi', icon: '🍣', title: 'Tokyo Sushi', description: 'Fresh sushi, elegant omakase and unforgettable Japanese dining experiences.', region: 'Japan · Fine dining' },
-    { id: 'naples-pizza', icon: '🍕', title: 'Neapolitan Pizza', description: 'Soft fermented dough, blistered crust and the timeless flavours of Naples.', region: 'Italy · Classic' },
-    { id: 'hyderabad-biryani', icon: '🥘', title: 'Hyderabadi Biryani', description: 'Fragrant rice, rich spices and a legendary culinary tradition from India.', region: 'India · Heritage' },
-    { id: 'bangkok-pad-thai', icon: '🍜', title: 'Bangkok Pad Thai', description: 'Tamarind, lime and wok-fried noodles make this a Bangkok street-food favourite.', region: 'Thailand · Street food' },
-    { id: 'paris-croissants', icon: '🥐', title: 'Parisian Croissants', description: 'Golden, flaky layers and buttery pastries from the cafés of Paris.', region: 'France · Bakery' },
-    { id: 'oaxaca-tacos', icon: '🌮', title: 'Oaxacan Tacos', description: 'Slow-cooked fillings, handmade tortillas and the bold flavours of Oaxaca.', region: 'Mexico · Regional' },
-    { id: 'istanbul-baklava', icon: '🍯', title: 'Istanbul Baklava', description: 'Crisp pastry, toasted nuts and a delicate syrup in a beloved Turkish dessert.', region: 'Türkiye · Sweet' },
-    { id: 'hanoi-pho', icon: '🍲', title: 'Hanoi Pho', description: 'A fragrant broth, fresh herbs and rice noodles in Vietnam’s iconic soup.', region: 'Vietnam · Comfort food' },
-    { id: 'marrakech-tagine', icon: '🍛', title: 'Marrakech Tagine', description: 'Slow-simmered spices and tender ingredients served in a classic clay pot.', region: 'Morocco · Slow-cooked' },
-    { id: 'lima-ceviche', icon: '🐟', title: 'Lima Ceviche', description: 'Fresh seafood, citrus and a bright touch of chilli from Peru’s coast.', region: 'Peru · Coastal' },
-    { id: 'athens-mezze', icon: '🫒', title: 'Athens Mezze', description: 'A colourful spread of olives, dips and small plates made for sharing.', region: 'Greece · Shared plates' },
-    { id: 'new-york-bagels', icon: '🥯', title: 'New York Bagels', description: 'A chewy, kettle-boiled classic served with favourite city-style toppings.', region: 'United States · Deli' }
+    {
+      id: 'tokyo-sushi', title: 'Tokyo Sushi', description: 'Fresh sushi, elegant omakase and unforgettable Japanese dining experiences.',
+      region: 'Japan · Fine dining', image: 'https://images.unsplash.com/photo-1570780775848-bc1897788ce0?auto=format&fit=crop&w=900&q=82',
+      alt: 'Sushi assortment with nigiri, maki, wasabi and pickled ginger'
+    },
+    {
+      id: 'naples-pizza', title: 'Neapolitan Pizza', description: 'Soft fermented dough, blistered crust and the timeless flavours of Naples.',
+      region: 'Italy · Classic', image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=82',
+      alt: 'Wood-fired pizza with mozzarella and fresh basil'
+    },
+    {
+      id: 'hyderabad-biryani', title: 'Hyderabadi Biryani', description: 'Fragrant rice, rich spices and a legendary culinary tradition from India.',
+      region: 'India · Heritage', image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=900&q=82',
+      alt: 'Aromatic biryani served with mint and fresh accompaniments'
+    },
+    {
+      id: 'bangkok-pad-thai', title: 'Bangkok Pad Thai', description: 'Tamarind, lime and wok-fried noodles make this a Bangkok street-food favourite.',
+      region: 'Thailand · Street food', image: 'https://images.unsplash.com/photo-1637806931098-af30b519be53?auto=format&fit=crop&w=900&q=82',
+      alt: 'Pad Thai noodles with crushed peanuts, bean sprouts and lime'
+    },
+    {
+      id: 'paris-croissants', title: 'Parisian Croissants', description: 'Golden, flaky layers and buttery pastries from the cafés of Paris.',
+      region: 'France · Bakery', image: 'https://images.unsplash.com/photo-1681072368184-a5a906887cf2?auto=format&fit=crop&w=900&q=82',
+      alt: 'Freshly baked golden croissant on a plate'
+    },
+    {
+      id: 'istanbul-baklava', title: 'Istanbul Baklava', description: 'Crisp pastry, toasted nuts and a delicate syrup in a beloved Turkish dessert.',
+      region: 'Türkiye · Sweet', image: 'https://images.unsplash.com/photo-1676014959543-81df1079b423?auto=format&fit=crop&w=900&q=82',
+      alt: 'Turkish pistachio baklava arranged on a serving tray'
+    },
+    {
+      id: 'hanoi-pho', title: 'Hanoi Pho', description: 'A fragrant broth, fresh herbs and rice noodles in Vietnam’s iconic soup.',
+      region: 'Vietnam · Comfort food', image: 'https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=900&q=82',
+      alt: 'Vietnamese pho with beef, rice noodles and fresh herbs'
+    },
+    {
+      id: 'new-york-bagels', title: 'New York Bagels', description: 'A chewy, kettle-boiled classic served with favourite city-style toppings.',
+      region: 'United States · Deli', image: 'https://images.unsplash.com/photo-1574691696373-a097069fec03?auto=format&fit=crop&w=900&q=82',
+      alt: 'Sesame bagel sandwich with cream cheese and tomato'
+    }
   ];
   const selectionKey = 'travelSphere.homeFoodSelection';
   let previousSelection = [];
@@ -144,11 +172,14 @@ if (foodCards.length) {
   foodCards.forEach((card, index) => {
     const item = selection[index];
     if (!item) return;
-    const icon = card.querySelector('.food-icon');
+    const image = card.querySelector('[data-food-image]');
     const heading = card.querySelector('h3');
     const copy = card.querySelector('p');
-    const region = card.querySelector('.card-actions .muted');
-    if (icon) icon.textContent = item.icon;
+    const region = card.querySelector('[data-food-region]');
+    if (image) {
+      image.src = item.image;
+      image.alt = item.alt;
+    }
     if (heading) heading.textContent = item.title;
     if (copy) copy.textContent = item.description;
     if (region) region.textContent = item.region;
