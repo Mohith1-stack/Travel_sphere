@@ -36,6 +36,18 @@ if (heroImage) {
       description: 'Alpine lakes · Canadian Rockies',
       image: 'https://images.unsplash.com/photo-1564381461146-631310baa90e?auto=format&fit=crop&w=1200&q=82',
       alt: 'Moraine Lake and the Canadian Rockies near Banff'
+    },
+    {
+      title: 'Bali, Indonesia',
+      description: 'Lush rice terraces · Island life',
+      image: 'https://images.unsplash.com/photo-1622833065251-be0d3ceaea04?auto=format&fit=crop&w=1200&q=82',
+      alt: 'Green rice terraces cascading across a hillside in Bali'
+    },
+    {
+      title: 'Paris, France',
+      description: 'Iconic landmarks · Parisian charm',
+      image: 'https://images.unsplash.com/photo-1532464298-ff809843058c?auto=format&fit=crop&w=1200&q=82',
+      alt: 'Eiffel Tower beneath a clear blue sky in Paris'
     }
   ];
   const title = document.querySelector('[data-hero-title]');
