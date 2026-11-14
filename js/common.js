@@ -236,7 +236,7 @@ function renderSavedPlaces() {
     const title = document.createElement('h3');
     title.textContent = place.name;
     const description = document.createElement('p');
-    description.textContent = session ? `Saved to ${session.name}'s private travel collection.` : 'Saved in local guest list.';
+    description.textContent = session ? `Saved to ${session.name}'s collection on this device.` : 'Saved in your local browser list.';
     const actions = document.createElement('div');
     actions.className = 'card-actions';
     const link = document.createElement('a');

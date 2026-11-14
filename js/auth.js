@@ -114,8 +114,8 @@ function updateAuthUI() {
         localStorage.removeItem('ts-saved-places');
         localStorage.removeItem('ts-profile');
 
-        // Immediately return to home as guest
-        window.location.href = 'index.html';
+        // End the session and return to the sign-in screen.
+        window.location.href = 'login.html';
       });
     } else {
       endActions.innerHTML = `
