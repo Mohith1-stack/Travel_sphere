@@ -35,7 +35,7 @@ function getSession() {
   return (session && session.signedIn) ? session : null;
 }
 
-// Require a local demo session before opening the travel pages.
+// Wait until Supabase has restored the real account session before guarding pages.
 function getPostAuthDestination() {
   const requested = new URLSearchParams(window.location.search).get('returnTo');
   if (!requested) return 'index.html';
@@ -103,8 +103,11 @@ function showWelcomeMessage() {
 
 const currentPageName = (window.location.pathname.split('/').filter(Boolean).pop() || 'index').replace(/\.html$/i, '').toLowerCase();
 const isPublicAuthPage = ['login', 'signup'].includes(currentPageName);
-if (!isPublicAuthPage && !getSession()) beginSignInRedirect();
-else showWelcomeMessage();
+window.tsBackend.ready.then(() => {
+  if (!isPublicAuthPage && !getSession()) beginSignInRedirect();
+  else showWelcomeMessage();
+  window.dispatchEvent(new CustomEvent('travel-sphere-backend-ready'));
+});
 
 if (isPublicAuthPage) {
   const returnTo = new URLSearchParams(window.location.search).get('returnTo');
@@ -120,7 +123,7 @@ if (isPublicAuthPage) {
 function getActiveUserKey() {
   const session = getSession();
   if (session && (session.email || session.name)) {
-    const raw = (session.email || session.name).toLowerCase().trim().replace(/[^a-z0-9_]/g, '_');
+    const raw = session.id || session.userKey || (session.email || session.name).toLowerCase().trim().replace(/[^a-z0-9_]/g, '_');
     return `ts_user_${raw}`;
   }
   return 'ts_guest';
@@ -188,6 +191,19 @@ document.addEventListener('click', (event) => {
   const place = button.dataset.saveDestination.trim();
   if (!place) return;
 
+  if (window.tsBackend.configured) {
+    button.disabled = true;
+    window.tsBackend.toggleSavedPlace(place).then((places) => {
+      writeSavedPlaces(places);
+      refreshSaveButtons();
+      updateSavedCount();
+      renderSavedPlaces();
+    }).catch((error) => {
+      alert(`Could not update your saved places: ${error.message}`);
+    }).finally(() => { button.disabled = false; });
+    return;
+  }
+
   let places = getSavedPlaces();
   if (places.some((item) => item.name === place)) {
     places = places.filter((item) => item.name !== place);
@@ -236,7 +252,7 @@ function renderSavedPlaces() {
     const title = document.createElement('h3');
     title.textContent = place.name;
     const description = document.createElement('p');
-    description.textContent = session ? `Saved to ${session.name}'s collection on this device.` : 'Saved in your local browser list.';
+      description.textContent = session ? `Saved to ${session.name}'s travel collection.` : 'Sign in to sync this place across your devices.';
     const actions = document.createElement('div');
     actions.className = 'card-actions';
     const link = document.createElement('a');
@@ -248,10 +264,23 @@ function renderSavedPlaces() {
     remove.type = 'button';
     remove.textContent = 'Remove';
     remove.addEventListener('click', () => {
-      writeSavedPlaces(getSavedPlaces().filter((item) => item.name !== place.name));
-      renderSavedPlaces();
-      updateSavedCount();
-      refreshSaveButtons();
+      if (window.tsBackend.configured) {
+        remove.disabled = true;
+        window.tsBackend.removeSavedPlace(place.name).then((places) => {
+          writeSavedPlaces(places);
+          renderSavedPlaces();
+          updateSavedCount();
+          refreshSaveButtons();
+        }).catch((error) => {
+          alert(`Could not remove this destination: ${error.message}`);
+          remove.disabled = false;
+        });
+      } else {
+        writeSavedPlaces(getSavedPlaces().filter((item) => item.name !== place.name));
+        renderSavedPlaces();
+        updateSavedCount();
+        refreshSaveButtons();
+      }
     });
     actions.append(link, remove);
     card.append(title, description, actions);
@@ -262,3 +291,8 @@ function renderSavedPlaces() {
 updateSavedCount();
 refreshSaveButtons();
 renderSavedPlaces();
+window.addEventListener('travel-sphere-backend-ready', () => {
+  updateSavedCount();
+  refreshSaveButtons();
+  renderSavedPlaces();
+});

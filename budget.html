@@ -66,33 +66,42 @@
       <div class="page-head center">
         <p class="eyebrow">Plan with confidence</p>
         <h1 class="page-title">Budget calculator</h1>
-        <p class="page-subtitle center-copy">Enter your expected travel costs and get an instant estimate before the
-          itinerary gets expensive.</p>
+        <p class="page-subtitle center-copy">Choose your starting city and destination for a rough per-person trip estimate.</p>
       </div>
       <div class="calculator">
         <form id="budget-form">
           <div class="form-grid">
-            <div class="form-field"><label for="hotel">Hotel</label><input id="hotel" min="0" placeholder="0"
-                type="number" /></div>
-            <div class="form-field"><label for="flight">Flight</label><input id="flight" min="0" placeholder="0"
-                type="number" /></div>
-            <div class="form-field"><label for="food">Food</label><input id="food" min="0" placeholder="0"
-                type="number" /></div>
-            <div class="form-field"><label for="shopping">Shopping</label><input id="shopping" min="0" placeholder="0"
-                type="number" /></div>
-            <div class="form-field"><label for="transport">Transport</label><input id="transport" min="0"
-                placeholder="0" type="number" /></div>
+            <div class="form-field"><label for="from-city">Starting city</label><input id="from-city" autocomplete="address-level2" required placeholder="e.g. Bengaluru" /></div>
+            <div class="form-field"><label for="to-city">Destination city</label><input id="to-city" autocomplete="address-level2" required placeholder="e.g. Kyoto, Japan" /></div>
+            <div class="form-field"><label for="trip-days">Trip length (days)</label><input id="trip-days" min="1" max="60" value="5" required type="number" /></div>
+            <div class="form-field"><label for="travellers">Travellers</label><input id="travellers" min="1" max="20" value="1" required type="number" /></div>
+            <div class="form-field"><label for="travel-mode">Main travel mode</label><select id="travel-mode"><option value="air">Round-trip flight</option><option value="rail">Train / bus</option></select></div>
             <div class="form-field"><label for="budget-currency">Currency</label><select id="budget-currency">
+                <option value="INR" selected>INR (₹)</option>
                 <option value="USD">USD ($)</option>
                 <option value="EUR">EUR (€)</option>
                 <option value="GBP">GBP (£)</option>
-                <option value="INR" selected>INR (₹)</option>
               </select></div>
-            <div class="full form-actions"><button class="btn full" type="submit">Calculate total</button></div>
+            <div class="form-field"><label for="hotel">Stay per person</label><input id="hotel" min="0" placeholder="Estimate"
+                type="number" /></div>
+            <div class="form-field"><label for="flight">Getting there & back</label><input id="flight" min="0" placeholder="Estimate"
+                type="number" /></div>
+            <div class="form-field"><label for="food">Meals</label><input id="food" min="0" placeholder="Estimate"
+                type="number" /></div>
+            <div class="form-field"><label for="shopping">Activities & extras</label><input id="shopping" min="0" placeholder="Estimate"
+                type="number" /></div>
+            <div class="form-field"><label for="transport">Local transport</label><input id="transport" min="0"
+                placeholder="Estimate" type="number" /></div>
+            <div class="full"><p id="budget-status" class="muted" aria-live="polite">Enter both cities to estimate typical costs. You can edit the estimates before recalculating.</p></div>
+            <div class="full form-actions budget-actions"><button class="btn full" type="button" id="estimate-trip">Estimate from these cities</button><button class="btn secondary full" type="submit">Recalculate my total</button></div>
           </div>
         </form>
-        <div id="budget-result" class="budget-result hidden"><span class="result-label">Estimated trip
-            budget</span><span id="total-amount" class="total">₹0</span></div>
+        <div id="budget-result" class="budget-result hidden" aria-live="polite">
+          <span class="result-label">Estimated cost per person</span><span id="total-amount" class="total">₹0</span>
+          <p id="budget-route-summary" class="muted"></p>
+          <p id="budget-group-total" class="muted"></p>
+          <p class="muted">Planning estimate only. Transport uses straight-line distance and broad fare assumptions, not live quotes. Lodging assumes a shared room; a solo room may cost more.</p>
+        </div>
       </div>
     </section>
   </main>
@@ -135,6 +144,9 @@
   </div>
 </footer>
   
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="assets/js/supabase-config.js" defer></script>
+    <script src="assets/js/supabase-backend.js" defer></script>
     <script src="assets/js/common.js" defer></script>
     <script src="assets/js/budget.js" defer></script>
     <script src="assets/js/auth.js" defer></script>

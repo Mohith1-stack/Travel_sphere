@@ -86,7 +86,7 @@
             <div class="form-field"><label for="lname">Last name</label><input id="lname" placeholder="Last name" />
             </div>
             <div class="form-field"><label for="email">Email address</label><input id="email" type="email"
-                placeholder="email@example.com" /></div>
+                placeholder="email@example.com" readonly aria-describedby="email-account-note" /><small id="email-account-note" class="muted">Email changes are managed through account security.</small></div>
             <div class="form-field"><label for="phone">Phone number</label><input id="phone" type="tel"
                 placeholder="+1 (555) 000-0000" /></div>
             <div class="full form-actions"><button class="btn" type="submit">Save profile</button></div>
@@ -96,20 +96,7 @@
       </div>
       <div class="settings-section">
         <h3>Security</h3>
-        <form class="settings-form">
-          <div class="form-grid">
-            <div class="form-field"><label for="curr-pass">Current password</label><input id="curr-pass"
-                type="password" /></div>
-            <div class="form-field"><label for="new-pass">New password</label><input id="new-pass" type="password" />
-            </div>
-            <div class="form-field"><label for="confirm-pass">Confirm new password</label><input id="confirm-pass"
-                type="password" /></div>
-            <div class="form-field check-field"><label><input type="checkbox" id="two-factor" /> Enable Two-Factor
-                Authentication</label></div>
-            <div class="full form-actions"><button class="btn" type="submit">Update security</button></div>
-          </div>
-          <p class="status" aria-live="polite"></p>
-        </form>
+        <p>Your email and password are managed securely by Supabase. Password reset and two-factor setup are not available in this version.</p>
       </div>
       <div class="settings-section">
         <h3>Preferences</h3>
@@ -145,8 +132,8 @@
       </div>
       <div class="settings-section danger">
         <h3>Danger zone</h3>
-        <p>Deleting local data removes the profile from this device.</p>
-        <form id="danger-form"><button class="btn danger" type="submit">Clear local data</button></form>
+        <p>Sign out and clear this device’s cached account data. Your cloud profile and saved destinations remain available when you sign in again.</p>
+        <form id="danger-form"><button class="btn danger" type="submit">Sign out and clear this device</button></form>
       </div>
       <div class="form-actions end-actions"><a class="btn secondary" href="index.html">Log out</a></div>
     </section>
@@ -190,6 +177,9 @@
   </div>
 </footer>
   
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="assets/js/supabase-config.js" defer></script>
+    <script src="assets/js/supabase-backend.js" defer></script>
     <script src="assets/js/common.js" defer></script>
     <script src="assets/js/auth.js" defer></script>
 </body>

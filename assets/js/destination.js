@@ -21,6 +21,9 @@ if (destinationTitle) {
   const compareLink = document.getElementById('compare-link');
   if (compareLink) compareLink.href = `compare.html?first=${encodeURIComponent(destination)}`;
 
+  const budgetLink = document.querySelector('.page-panel a[href="budget.html"]');
+  if (budgetLink) budgetLink.href = `budget.html?destination=${encodeURIComponent(destination)}`;
+
   // Fetch live Wikipedia & Open-Meteo asynchronously
   (async () => {
     try {

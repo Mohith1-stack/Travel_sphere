@@ -10,6 +10,14 @@ function escapeHtml(str) {
 }
 
 function updateAuthUI() {
+  if (!window.tsBackend.configured) {
+    [document.getElementById('login-form'), document.getElementById('signup-form')].filter(Boolean).forEach((form) => {
+      const button = form.querySelector('[type="submit"]');
+      if (button) button.disabled = true;
+      showMessage(form, 'The secure account service is not connected yet. Follow docs/supabase-setup.md to finish setup.');
+    });
+  }
+
   const session = getSession();
   const profile = getActiveUserProfile() || {};
   const displayName = session?.name || profile?.first || 'Explorer';
@@ -38,7 +46,7 @@ function updateAuthUI() {
             <p style="margin: 2px 0 0; font-size: 0.8rem; color: var(--muted);">${escapeHtml(displayEmail)}</p>
           </div>
           <p style="font-size: 0.84rem; color: var(--text-soft); line-height: 1.4; margin: 0 0 14px;">
-            Your saved destinations and preferences are kept separately in this browser for this demo.
+            Your account, saved places and preferences are synced securely to your TravelSphere account.
           </p>
           <a class="btn full" href="settings.html" style="margin-bottom: 8px;">⚙️ Settings & Sign Out</a>
           <a class="btn secondary full" href="saved.html">♥ Saved Places (<span data-favorite-count>${getSavedPlaces().length}</span>)</a>
@@ -50,7 +58,7 @@ function updateAuthUI() {
       panel.innerHTML = `
         <fieldset class="fieldset">
           <legend>Guest Explorer</legend>
-          <p>Sign in to access saved destinations and preferences stored in this browser.</p>
+        <p>Sign in to sync your saved destinations and preferences across devices.</p>
           <a class="btn full" href="login.html">Sign In</a>
           <div class="spacer-xs"></div>
           <a class="btn secondary full" href="settings.html">Settings</a>
@@ -106,16 +114,13 @@ function updateAuthUI() {
           <button type="button" class="btn danger" id="btn-sign-out" style="padding: 10px 30px; font-weight: 700;">Sign Out of Account</button>
         </div>
       `;
-      document.getElementById('btn-sign-out')?.addEventListener('click', () => {
-        // Terminate active session
-        localStorage.removeItem('ts-session');
-        // Wipe temporary guest state and legacy global keys
-        localStorage.removeItem('ts_guest_saved_places');
-        localStorage.removeItem('ts-saved-places');
-        localStorage.removeItem('ts-profile');
-
-        // End the session and return to the sign-in screen.
-        window.location.href = 'login.html';
+      document.getElementById('btn-sign-out')?.addEventListener('click', async () => {
+        try {
+          await window.tsBackend.signOut();
+          window.location.href = 'login.html';
+        } catch (error) {
+          alert(`Could not sign out: ${error.message}`);
+        }
       });
     } else {
       endActions.innerHTML = `
@@ -128,8 +133,8 @@ function updateAuthUI() {
   }
 
   // 4. On login.html or signup.html: If ALREADY signed in, don't ask again!
-  const isLoginPage = window.location.pathname.endsWith('login.html');
-  const isSignupPage = window.location.pathname.endsWith('signup.html');
+  const isLoginPage = /\/login(?:\.html)?\/?$/i.test(window.location.pathname);
+  const isSignupPage = /\/signup(?:\.html)?\/?$/i.test(window.location.pathname);
   if (session && (isLoginPage || isSignupPage)) {
     const authCard = document.querySelector('.auth-card .page-panel');
     if (authCard) {
@@ -155,7 +160,7 @@ function updateAuthUI() {
   }
 }
 
-// Front-end signup and login with account isolation
+// Account creation and sign-in are handled by Supabase Auth.
 function finishSignIn(form, name) {
   const explorerName = name || 'Explorer';
   showMessage(form, `Welcome, ${explorerName}! Thanks for choosing TravelSphere. We hope you enjoy planning your next journey.`);
@@ -171,80 +176,52 @@ function finishSignIn(form, name) {
 
 const signupForm = document.getElementById('signup-form');
 if (signupForm) {
-  signupForm.addEventListener('submit', (event) => {
+  signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    const submitButton = signupForm.querySelector('[type="submit"]');
+    submitButton.disabled = true;
     const first = document.getElementById('signup-fname').value.trim();
     const last = document.getElementById('signup-lname').value.trim();
     const email = document.getElementById('signup-email').value.trim().toLowerCase();
-
-    const userRaw = encodeURIComponent(email).toLowerCase().replace(/[^a-z0-9_]/g, '_');
-    const userKey = `ts_user_${userRaw}`;
-    const newProfile = { first, last, email, phone: '' };
-    writeData(`${userKey}_profile`, newProfile);
-
-    // Initialize an empty private saved places array for this new user
-    if (!readData(`${userKey}_saved_places`, null)) {
-      writeData(`${userKey}_saved_places`, []);
+    const password = document.getElementById('signup-password').value;
+    try {
+      const { session } = await window.tsBackend.signUp({ email, password, firstName: first, lastName: last });
+      if (session) finishSignIn(signupForm, first);
+      else showMessage(signupForm, 'Your account is ready. Check your email to confirm it, then sign in.');
+    } catch (error) {
+      showMessage(signupForm, error.message || 'Could not create your account. Please try again.');
+    } finally {
+      submitButton.disabled = false;
     }
-
-    // Set active session strictly to this user
-    writeData('ts-session', {
-      signedIn: true,
-      name: first,
-      email: email,
-      userKey: userKey
-    });
-
-    finishSignIn(signupForm, first);
   });
 }
 
 const loginForm = document.getElementById('login-form');
 if (loginForm) {
-  loginForm.addEventListener('submit', (event) => {
+  loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const username = document.getElementById('username').value.trim();
-    if (!username) return;
-
-    const unameLow = username.toLowerCase();
-    const userEmail = username.includes('@') ? username : `${unameLow}@example.com`;
-    const capName = username.charAt(0).toUpperCase() + username.slice(1);
-
-    const userRaw = encodeURIComponent(userEmail).toLowerCase().replace(/[^a-z0-9_]/g, '_');
-    const userKey = `ts_user_${userRaw}`;
-    let userProfile = readData(`${userKey}_profile`, null);
-
-    if (!userProfile) {
-      userProfile = {
-        first: capName,
-        last: '',
-        email: userEmail,
-        phone: ''
-      };
-      writeData(`${userKey}_profile`, userProfile);
+    const submitButton = loginForm.querySelector('[type="submit"]');
+    submitButton.disabled = true;
+    const email = document.getElementById('username').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
+    try {
+      await window.tsBackend.signIn(email, password);
+      const { data: { user } } = await window.tsBackend.client.auth.getUser();
+      const name = user?.user_metadata?.first_name || email.split('@')[0];
+      try { sessionStorage.setItem('ts-welcome-message', JSON.stringify({ name })); } catch { /* Optional welcome only. */ }
+      window.location.replace(getPostAuthDestination());
+    } catch (error) {
+      showMessage(loginForm, error.message || 'Could not sign in. Check your email and password.');
+    } finally {
+      submitButton.disabled = false;
     }
-
-    // Initialize user's private saved places array if not present
-    if (!readData(`${userKey}_saved_places`, null)) {
-      writeData(`${userKey}_saved_places`, []);
-    }
-
-    // Set active session strictly to this user
-    writeData('ts-session', {
-      signedIn: true,
-      name: userProfile.first || capName,
-      email: userProfile.email || userEmail,
-      userKey: userKey
-    });
-
-    finishSignIn(loginForm, userProfile.first || capName);
   });
 }
 
 // Restore and save basic profile/preferences locally on this device.
 const profileForm = document.getElementById('profile-form');
 if (profileForm) {
-  profileForm.addEventListener('submit', (event) => {
+  profileForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const session = getSession();
     if (!session) {
@@ -255,24 +232,25 @@ if (profileForm) {
 
     const updatedFirst = document.getElementById('fname').value.trim() || session.name || 'Explorer';
     const updatedLast = document.getElementById('lname').value.trim();
-    const updatedEmail = document.getElementById('email').value.trim().toLowerCase() || session.email;
+    const updatedEmail = session.email;
     const updatedPhone = document.getElementById('phone').value.trim();
 
-    writeActiveUserProfile({
+    const updatedProfile = {
       first: updatedFirst,
       last: updatedLast,
       email: updatedEmail,
       phone: updatedPhone
-    });
+    };
 
-    writeData('ts-session', {
-      ...session,
-      name: updatedFirst,
-      email: updatedEmail
-    });
-
-    showMessage(profileForm, 'Profile details saved on this device.');
-    updateAuthUI();
+    try {
+      await window.tsBackend.saveProfile(updatedProfile);
+      writeActiveUserProfile(updatedProfile);
+      writeData('ts-session', { ...session, name: updatedFirst });
+      showMessage(profileForm, 'Profile saved to your TravelSphere account.');
+      updateAuthUI();
+    } catch (error) {
+      showMessage(profileForm, `Could not save profile: ${error.message}`);
+    }
   });
 }
 
@@ -282,18 +260,21 @@ if (prefsForm) {
   ['currency', 'language'].forEach((id) => { if (prefs[id]) document.getElementById(id).value = prefs[id]; });
   prefsForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    writeActiveUserPreferences({
+    const preferences = {
       currency: document.getElementById('currency').value,
       language: document.getElementById('language').value
-    });
-    showMessage(prefsForm, 'Preferences saved on this device.');
+    };
+    window.tsBackend.savePreferences(preferences).then(() => {
+      writeActiveUserPreferences(preferences);
+      showMessage(prefsForm, 'Preferences synced to your TravelSphere account.');
+    }).catch((error) => showMessage(prefsForm, `Could not save preferences: ${error.message}`));
   });
 }
 
 document.querySelectorAll('#notif-form, .settings-form:not(#profile-form):not(#prefs-form)').forEach((form) => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    showMessage(form, 'Settings updated for this demo.');
+      showMessage(form, 'This setting is not connected yet.');
   });
 });
 
@@ -301,22 +282,19 @@ const clearForm = document.getElementById('danger-form');
 if (clearForm) {
   clearForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    if (confirm('Clear saved places and TravelSphere demo preferences from this browser?')) {
+    if (confirm('Clear saved places and TravelSphere preferences from this browser?')) {
       const userKey = getActiveUserKey();
       localStorage.removeItem(`${userKey}_saved_places`);
       localStorage.removeItem(`${userKey}_profile`);
       localStorage.removeItem(`${userKey}_preferences`);
-      localStorage.removeItem('ts-session');
       localStorage.removeItem('ts_guest_saved_places');
       localStorage.removeItem('ts-saved-places');
       localStorage.removeItem('ts-profile');
-      window.location.reload();
+      window.tsBackend.signOut().finally(() => window.location.reload());
     }
   });
 }
 
-// Initialize Auth UI immediately on load
-updateAuthUI();
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', updateAuthUI);
-}
+// Render account UI after Supabase restores the session and after auth changes.
+window.addEventListener('travel-sphere-backend-ready', updateAuthUI);
+window.addEventListener('travel-sphere-auth-change', updateAuthUI);

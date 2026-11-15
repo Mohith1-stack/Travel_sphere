@@ -9,8 +9,8 @@ TravelSphere is a responsive travel discovery and planning website built with HT
 - **Discover by mood and season:** Find ideas for adventure, culture, luxury, nature, relaxing breaks, and seasonal travel.
 - **Food explorer:** Browse cuisine highlights and links to food searches for each destination.
 - **Compare destinations:** Compare destination profiles and current weather, with links to flight searches.
-- **Plan a budget:** Add common trip expenses and calculate a total in a selected currency.
-- **Save places:** Keep a list of destinations in the current browser and manage profile preferences in the demo interface.
+- **Plan a budget:** Estimate a rough per-person trip cost from origin and destination, trip length, and travel mode; adjust the categories and recalculate.
+- **Save places:** Keep destinations, profile details, and currency/language preferences in a Supabase account.
 - **Destination photography:** The homepage hero gently breathes and rotates through six destination photographs every eight seconds, over a soft landscape photo background.
 - **Rotating food highlights:** The homepage features real food photography and selects three dishes from a curated collection on each visit, avoiding the previous selection.
 - **Sign-in flow:** Show a branded redirect for guests, return them to their requested page after sign-in, and welcome them into the app.
@@ -30,7 +30,7 @@ TravelSphere is a responsive travel discovery and planning website built with HT
 | `compare.html` | Destination comparison |
 | `budget.html` | Trip budget calculator |
 | `saved.html` | Locally saved destinations |
-| `login.html`, `signup.html`, `settings.html` | Demo account and preference screens |
+| `login.html`, `signup.html`, `settings.html` | Account sign-in, profile, and preferences |
 
 ## Run locally
 
@@ -63,6 +63,8 @@ Travel_sphere/
 │   ├── css/main.css                             # Shared styles and responsive layouts
 │   └── js/                                      # Page scripts and shared behavior
 ├── docs/javascript-beginner-guide.md           # JavaScript learning guide
+├── docs/supabase-setup.md                      # Supabase account and database setup
+├── supabase/schema.sql                         # User tables and Row Level Security policies
 ├── archive/legacy-script-backup.js              # Unused original script backup
 └── vercel.json                                  # Static deployment configuration
 ```
@@ -78,7 +80,9 @@ Page files stay at the repository root so the existing static routes and destina
 - `assets/js/food.js` — cuisine explorer.
 - `assets/js/compare.js` — destination comparison.
 - `assets/js/budget.js` — budget calculator.
-- `assets/js/auth.js` — demo profile, sign-in, sign-up, and preferences behavior.
+- `assets/js/auth.js` — Supabase sign-in, sign-up, profile, and preferences behavior.
+- `assets/js/supabase-backend.js` — Supabase Auth and database operations.
+- `assets/js/supabase-config.js` — public project URL and publishable key configuration.
 
 ## Online features
 
@@ -86,11 +90,11 @@ The map, destination details, photos, weather, and travel searches use online se
 
 ## Deployment
 
-The site is static and can be hosted by services such as Vercel or GitHub Pages. The included `vercel.json` configures clean URLs and response headers for Vercel. No server-side runtime or build command is required.
+The site is static and can be hosted by services such as Vercel or GitHub Pages. The included `vercel.json` configures clean URLs and response headers for Vercel. No server-side runtime or build command is required. Supabase provides authentication and the database; set it up using [the Supabase guide](docs/supabase-setup.md).
 
 ## Limitations and privacy
 
-This is a front-end demo. It has no backend, database, or real authentication. Demo profile, preference, and saved-place data is stored in the browser's `localStorage`; it is not encrypted or synced between devices. Do not enter real passwords or sensitive personal information. Weather and destination content depend on third-party services, and any flight or map search opens the relevant external service.
+Supabase credentials must be configured before account sign-in and cloud sync can work. The browser uses only the public publishable key; database access is limited by Row Level Security. The budget calculator provides broad planning estimates rather than live fares. Weather and destination content depend on third-party services, and flight or map searches open external services.
 
 ## Learning guide
 
