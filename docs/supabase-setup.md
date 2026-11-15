@@ -41,4 +41,4 @@ If either value is blank, sign-in is intentionally unavailable and protected pag
 - `trip_plans` is ready in the database schema but the website does not yet have trip-plan create/edit screens.
 - Password reset, social sign-in, two-factor authentication, notifications, and booking payments are not implemented.
 
-The calculator’s route estimate is an independent planning aid. It uses city geocoding and broad cost assumptions; it is not a live airfare or hotel-price feed.
+The calculator’s route estimate is an independent planning aid. Enter city, state/country when names are ambiguous (for example, `Kochi, India`). The shown range uses straight-line distance and destination-level cost assumptions; it is not a live airfare or hotel-price feed. A flight-search link is provided for current fares.

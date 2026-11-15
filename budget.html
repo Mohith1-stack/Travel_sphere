@@ -71,8 +71,8 @@
       <div class="calculator">
         <form id="budget-form">
           <div class="form-grid">
-            <div class="form-field"><label for="from-city">Starting city</label><input id="from-city" autocomplete="address-level2" required placeholder="e.g. Bengaluru" /></div>
-            <div class="form-field"><label for="to-city">Destination city</label><input id="to-city" autocomplete="address-level2" required placeholder="e.g. Kyoto, Japan" /></div>
+            <div class="form-field"><label for="from-city">Starting city</label><input id="from-city" autocomplete="address-level2" required placeholder="e.g. Kochi, India" /></div>
+            <div class="form-field"><label for="to-city">Destination city</label><input id="to-city" autocomplete="address-level2" required placeholder="e.g. Tokyo, Japan" /></div>
             <div class="form-field"><label for="trip-days">Trip length (days)</label><input id="trip-days" min="1" max="60" value="5" required type="number" /></div>
             <div class="form-field"><label for="travellers">Travellers</label><input id="travellers" min="1" max="20" value="1" required type="number" /></div>
             <div class="form-field"><label for="travel-mode">Main travel mode</label><select id="travel-mode"><option value="air">Round-trip flight</option><option value="rail">Train / bus</option></select></div>
@@ -92,13 +92,14 @@
                 type="number" /></div>
             <div class="form-field"><label for="transport">Local transport</label><input id="transport" min="0"
                 placeholder="Estimate" type="number" /></div>
-            <div class="full"><p id="budget-status" class="muted" aria-live="polite">Enter both cities to estimate typical costs. You can edit the estimates before recalculating.</p></div>
+            <div class="full"><p id="budget-status" class="muted" aria-live="polite">Include the country for each city to avoid mix-ups. Estimates are based on typical costs, not live fares.</p></div>
             <div class="full form-actions budget-actions"><button class="btn full" type="button" id="estimate-trip">Estimate from these cities</button><button class="btn secondary full" type="submit">Recalculate my total</button></div>
           </div>
         </form>
         <div id="budget-result" class="budget-result hidden" aria-live="polite">
-          <span class="result-label">Estimated cost per person</span><span id="total-amount" class="total">₹0</span>
+          <span class="result-label" id="budget-result-label">Rough cost range per person</span><span id="total-amount" class="total">₹0</span>
           <p id="budget-route-summary" class="muted"></p>
+          <p><a id="budget-flight-link" class="btn secondary hidden" href="#" target="_blank" rel="noopener">Check current flight fares ↗</a></p>
           <p id="budget-group-total" class="muted"></p>
           <p class="muted">Planning estimate only. Transport uses straight-line distance and broad fare assumptions, not live quotes. Lodging assumes a shared room; a solo room may cost more.</p>
         </div>

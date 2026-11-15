@@ -1415,6 +1415,11 @@ html[data-theme="light"] .map-arena {
   font-weight: 700;
 }
 
+.budget-result .total {
+  font-size: clamp(1.8rem, 5.2vw, 3.5rem);
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 620px) {
   .budget-actions {
     grid-template-columns: 1fr;
