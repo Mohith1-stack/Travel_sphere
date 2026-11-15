@@ -126,6 +126,30 @@
       const result = await client.from('saved_destinations').delete().eq('name', name);
       if (result.error) throw result.error;
       return this.listSavedPlaces();
+    },
+    async listTripPlans() {
+      if (!configured) return [];
+      const result = await client.from('trip_plans').select('id, title, destination, budget, currency, notes, created_at').order('created_at', { ascending: false });
+      if (result.error) throw result.error;
+      return result.data || [];
+    },
+    async saveTripPlan(plan) {
+      if (!configured) throw new Error('Connect Supabase before saving trip estimates.');
+      const result = await client.from('trip_plans').insert({
+        title: plan.title,
+        destination: plan.destination,
+        budget: plan.budget,
+        currency: plan.currency,
+        notes: plan.notes
+      }).select('id, title, destination, budget, currency, notes, created_at').single();
+      if (result.error) throw result.error;
+      return result.data;
+    },
+    async deleteTripPlan(id) {
+      if (!configured) throw new Error('Connect Supabase before managing trip estimates.');
+      const result = await client.from('trip_plans').delete().eq('id', id);
+      if (result.error) throw result.error;
+      return true;
     }
   };
 

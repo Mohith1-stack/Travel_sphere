@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="TravelSphere — discover, compare and plan memorable journeys." />
-  <link rel="stylesheet" href="assets/css/main.css?v=professional-1" />
+  <link rel="stylesheet" href="assets/css/main.css?v=interactive-2" />
   <title>TravelSphere | Budget Calculator</title>
 </head>
 
@@ -100,10 +100,18 @@
           <span class="result-label" id="budget-result-label">Rough cost range per person</span><span id="total-amount" class="total">₹0</span>
           <p id="budget-route-summary" class="muted"></p>
           <p><a id="budget-flight-link" class="btn secondary hidden" href="#" target="_blank" rel="noopener">Check current flight fares ↗</a></p>
+          <p><button id="save-budget-estimate" class="btn" type="button">Save this estimate to my trips</button></p>
           <p id="budget-group-total" class="muted"></p>
           <p class="muted">Planning estimate only. Transport uses straight-line distance and broad fare assumptions, not live quotes. Lodging assumes a shared room; a solo room may cost more.</p>
         </div>
       </div>
+      <section class="saved-trip-estimates" aria-labelledby="saved-estimates-title">
+        <div class="saved-trip-heading">
+          <div><p class="eyebrow">Your plans</p><h2 id="saved-estimates-title">Saved trip estimates</h2></div>
+          <p class="muted">Keep a few route budgets handy while you decide.</p>
+        </div>
+        <div id="budget-saved-trips" class="saved-trip-grid" aria-live="polite"><p class="muted">Loading your saved estimates…</p></div>
+      </section>
     </section>
   </main>
   <footer class="site-footer">

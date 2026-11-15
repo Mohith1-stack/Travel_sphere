@@ -3,6 +3,8 @@ const budgetForm = document.getElementById('budget-form');
 if (budgetForm) {
   const fields = ['hotel', 'flight', 'food', 'shopping', 'transport'];
   const estimateButton = document.getElementById('estimate-trip');
+  const saveEstimateButton = document.getElementById('save-budget-estimate');
+  const savedTrips = document.getElementById('budget-saved-trips');
   const status = document.getElementById('budget-status');
   const currencySelect = document.getElementById('budget-currency');
   const destinationInput = document.getElementById('to-city');
@@ -39,7 +41,67 @@ if (budgetForm) {
     document.getElementById('total-amount').textContent = formatMoney(perPerson);
     document.getElementById('budget-group-total').textContent = `Estimated total for ${travellers} ${travellers === 1 ? 'traveller' : 'travellers'}: ${formatMoney(perPerson * travellers)}`;
     document.getElementById('budget-result').classList.remove('hidden');
+    saveEstimateButton?.classList.remove('hidden');
     return perPerson;
+  };
+
+  const renderSavedTrips = (plans) => {
+    if (!savedTrips) return;
+    savedTrips.replaceChildren();
+    if (!plans.length) {
+      const empty = document.createElement('p');
+      empty.className = 'muted';
+      empty.textContent = 'No saved estimates yet. Save one above to keep it here.';
+      savedTrips.appendChild(empty);
+      return;
+    }
+    plans.forEach((plan) => {
+      const card = document.createElement('article');
+      card.className = 'saved-trip-card';
+      const title = document.createElement('h3');
+      title.textContent = plan.title;
+      const amount = document.createElement('strong');
+      const currency = plan.currency || 'INR';
+      const locales = { INR: 'en-IN', USD: 'en-US', EUR: 'de-DE', GBP: 'en-GB' };
+      amount.textContent = new Intl.NumberFormat(locales[currency] || 'en', { style: 'currency', currency, maximumFractionDigits: 0 }).format(Number(plan.budget) || 0);
+      const detail = document.createElement('p');
+      detail.className = 'muted';
+      detail.textContent = plan.notes || plan.destination;
+      const remove = document.createElement('button');
+      remove.className = 'btn secondary';
+      remove.type = 'button';
+      remove.textContent = 'Remove';
+      remove.setAttribute('aria-label', `Remove saved estimate for ${plan.destination}`);
+      remove.addEventListener('click', async () => {
+        remove.disabled = true;
+        try {
+          await window.tsBackend.deleteTripPlan(plan.id);
+          const updated = await window.tsBackend.listTripPlans();
+          renderSavedTrips(updated);
+        } catch (error) {
+          remove.disabled = false;
+          status.textContent = `Could not remove this estimate: ${error.message}`;
+        }
+      });
+      card.append(title, amount, detail, remove);
+      savedTrips.appendChild(card);
+    });
+  };
+
+  const loadSavedTrips = async () => {
+    if (!savedTrips || !window.tsBackend.configured) {
+      if (savedTrips) savedTrips.innerHTML = '<p class="muted">Sign in to save trip estimates to your account.</p>';
+      return;
+    }
+    try {
+      renderSavedTrips(await window.tsBackend.listTripPlans());
+    } catch (error) {
+      savedTrips.innerHTML = '';
+      const message = document.createElement('p');
+      message.className = 'muted';
+      message.textContent = `Your saved estimates could not be loaded: ${error.message}`;
+      savedTrips.appendChild(message);
+    }
   };
 
   const findCity = async (query) => {
@@ -117,6 +179,7 @@ if (budgetForm) {
       document.getElementById('total-amount').textContent = `${formatMoney(low)}–${formatMoney(high)}`;
       document.getElementById('budget-group-total').textContent = `Estimated total for ${travellers} ${travellers === 1 ? 'traveller' : 'travellers'}: ${formatMoney(low * travellers)}–${formatMoney(high * travellers)}`;
       document.getElementById('budget-result').classList.remove('hidden');
+      saveEstimateButton?.classList.remove('hidden');
     } catch (error) {
       status.textContent = error.message || 'Could not prepare the estimate. Please try again.';
     } finally {
@@ -125,6 +188,37 @@ if (budgetForm) {
   };
 
   estimateButton.addEventListener('click', estimateTrip);
+  saveEstimateButton?.addEventListener('click', async () => {
+    if (!window.tsBackend.configured) {
+      status.textContent = 'Connect Supabase to save trip estimates to your account.';
+      return;
+    }
+    saveEstimateButton.disabled = true;
+    saveEstimateButton.textContent = 'Saving your estimate…';
+    try {
+      const destination = destinationInput.value.trim();
+      const origin = document.getElementById('from-city').value.trim();
+      const currency = currencySelect.value;
+      const total = fields.reduce((sum, id) => sum + Math.max(0, Number(document.getElementById(id)?.value || 0)), 0);
+      const duration = Number(document.getElementById('trip-days').value || 1);
+      const title = `${origin} → ${destination}`;
+      const breakdown = fields.map((id) => `${id}: ${formatMoney(Number(document.getElementById(id).value || 0))}`).join(' · ');
+      await window.tsBackend.saveTripPlan({
+        title,
+        destination,
+        budget: total,
+        currency,
+        notes: `${duration} ${duration === 1 ? 'day' : 'days'} · per person · ${breakdown}`
+      });
+      status.textContent = 'Estimate saved to your trip plans.';
+      await loadSavedTrips();
+    } catch (error) {
+      status.textContent = `Could not save this estimate: ${error.message}`;
+    } finally {
+      saveEstimateButton.disabled = false;
+      saveEstimateButton.textContent = 'Save this estimate to my trips';
+    }
+  });
   budgetForm.addEventListener('submit', (event) => {
     event.preventDefault();
     if (currencyNeedsRefresh) {
@@ -142,4 +236,6 @@ if (budgetForm) {
       document.getElementById('budget-group-total').textContent = '';
     }
   });
+  window.tsBackend.ready.then(loadSavedTrips);
+  window.addEventListener('travel-sphere-backend-ready', loadSavedTrips);
 }

@@ -296,3 +296,20 @@ window.addEventListener('travel-sphere-backend-ready', () => {
   refreshSaveButtons();
   renderSavedPlaces();
 });
+
+// Reveal major page sections as they enter view without hiding content if JS is unavailable.
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const revealTargets = document.querySelectorAll('main .page-head, main > section, main .grid-2 > .card, main .grid-3 > .card');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
+  revealTargets.forEach((element, index) => {
+    element.classList.add('scroll-reveal');
+    element.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 70}ms`);
+    revealObserver.observe(element);
+  });
+}
